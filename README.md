@@ -1,1 +1,1 @@
-# Probabilistische-Energiedatenvorhersage
+# Entwicklung eines probabilistischen LSTM-Modells zur Vorhersage von Photovoltaik-Einspeisung auf Basis von SMARD-Marktdaten<img width="4967" height="175" alt="grafik" src="https://github.com/user-attachments/assets/302539a1-e83a-4893-80df-a0c23d12c594" />
