@@ -9,3 +9,6 @@ Das Modell ist multivariat und lernt die physikalischen Wechselwirkungen im Stro
 
 ## Was soll am Ende demonstriert werden?
 Es wird demonstriert, wie die KI im Vergleich zur Realität (den Ist-Werten des Netzes) abschneidet. Es wird live gezeigt, wie sich das Unsicherheitsband bei wechselhaftem Wetter ausdehnt und bei stabilen Wetterlagen verengt (hohe Planungssicherheit).
+
+## Link zu den SMARD-Marktdaten
+https://www.smard.de/home/downloadcenter/download-marktdaten/?downloadAttributes=%7B%22selectedCategory%22:1,%22selectedSubCategory%22:1,%22selectedRegion%22:false,%22selectedFileType%22:%22CSV%22,%22from%22:1775685600000,%22to%22:1776635999999%7D
