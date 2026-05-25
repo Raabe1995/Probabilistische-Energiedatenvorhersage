@@ -1,4 +1,4 @@
-# Entwicklung eines probabilistischen LSTM-Modells zur Vorhersage von Photovoltaik-Einspeisung auf Basis von SMARD-Marktdaten
+# Entwicklung eines probabilistischen LSTM/RNN-Modells zur Vorhersage von Photovoltaik-Einspeisung auf Basis von SMARD-Marktdaten
 ## Technische Schwerpunkte
 LSTM, RNN, Neuronales Netz
 ## Welches Problem soll das Projekt lösen?
