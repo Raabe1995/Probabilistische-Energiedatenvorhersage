@@ -57,23 +57,32 @@ if pv_col in df.columns:
     plt.show()
 
 # 6. Korrelations-Check
-plt.figure(figsize=(10, 8))
-sns.heatmap(df[cols_to_fix].corr(), annot=False, cmap='coolwarm')
-plt.title('Korrelation zwischen Energiequellen')
+# Breite leicht erhöht, um Platz für die Y-Beschriftung zu schaffen
+plt.figure(figsize=(14, 10))
+
+# Heatmap erstellen
+ax = sns.heatmap(
+    df[cols_to_fix].corr(),
+    annot=False,
+    cmap='coolwarm',
+    # Beschriftung für die Farbleiste
+    cbar_kws={'label': 'Pearson-Korrelationskoeffizient (r)'}
+)
+
+# Optimierung der Beschriftungen
+
+# X-Achsen-Beschriftungen rotieren (10 Grad) und nach rechts ausrichten
+plt.xticks(rotation=10, ha='right', fontsize=9)
+
+# Y-Achsen-Beschriftungen horizontal lassen, aber Schriftgröße leicht verkleinern
+plt.yticks(rotation=0, fontsize=9)
+
+plt.title('Korrelation zwischen den Energiequellen (SMARD-Rohdaten)', fontsize=14, pad=20)
+
+# WICHTIG: Berechnet automatisch den benötigten Platz, damit nichts abgeschnitten wird
+plt.tight_layout()
+
 plt.show()
-
-# Stationaritätscheck (ADF-Test)
-from statsmodels.tsa.stattools import adfuller
-
-def check_stationarity(timeseries, name):
-    print(f'--- ADF Test für {name} ---')
-    result = adfuller(timeseries.dropna())
-    print(f'ADF Statistic: {result[0]:.4f}')
-    print(f'p-value: {result[1]:.4f}')
-    print('Stationär' if result[1] <= 0.05 else 'Nicht stationär (Differenzierung nötig)')
-
-if pv_col in df.columns:
-    check_stationarity(df[pv_col], 'Photovoltaik')
 
 # 7. 3D-Array: Features (X), Target (y)
 
