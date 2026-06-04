@@ -3,19 +3,40 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
+import glob
 
-# 1. Daten laden
+# 1. Daten laden (Komplett dynamisch)
+
+# Ordner definieren, in den Docker die Dateien legt
+input_dir = '/app/data/input' if os.path.exists('/app/data/input') else '.'
 
 try:
-    # Wenn ein Dateiname übergeben wurde, wird dieser übernommen. Ansonsten den Standard-Namen.
-    input_filename = sys.argv[1] if len(
-        sys.argv) > 1 else 'Realisierte_Erzeugung_202604090000_202604200000_Viertelstunde.csv'
+    # Wenn ein Argument übergeben wurde, wird es genutzt.
+    if len(sys.argv) > 1:
+        input_filename = sys.argv[1]
+    else:
+        # Ansonsten: Sucht automatisch nach jeder .csv-Datei im Input-Ordner
+        csv_files = glob.glob(os.path.join(input_dir, '*.csv'))
+
+        if not csv_files:
+            # Fallback für lokale Entwicklung ohne Unterordner
+            csv_files = glob.glob('*.csv')
+
+        if csv_files:
+            # Sortiert nach der neuesten Datei (die, die zuletzt hochgeladen/geändert wurde)
+            input_filename = max(csv_files, key=os.path.getmtime)
+        else:
+            raise FileNotFoundError("Keine CSV-Datei im Verzeichnis gefunden!")
+
+    print(f"--- EDA Skript verarbeitet jetzt aktiv die Datei: {input_filename} ---")
 
     df = pd.read_csv(input_filename, sep=';')
     df['Timestamp'] = pd.to_datetime(df['Datum von'], format='%d.%m.%Y %H:%M')
     df.set_index('Timestamp', inplace=True)
-except FileNotFoundError:
-    print(f"Datei '{input_filename}' nicht gefunden! Bitte Pfad prüfen.")
+
+except Exception as e:
+    print(f"Fehler beim Laden der Daten: {e}")
     exit()
 
 # 2. Daten bereinigen
@@ -50,6 +71,7 @@ window_size = steps_per_day
 start_date_str = df.index.min().strftime('%m.%Y')
 end_date_str = df.index.max().strftime('%m.%Y')
 date_range_str = start_date_str if start_date_str == end_date_str else f"{start_date_str} - {end_date_str}"
+safe_date_str = date_range_str.replace('.', '_').replace(' ', '').replace('-', '_')
 
 print(f"Erkannte Auflösung: Alle {time_delta_min} Minuten. Window Size für 24h: {window_size}")
 
@@ -72,7 +94,7 @@ daily_profile.plot(kind='line', title=f'Durchschnittliches Tagesprofil ({date_ra
 plt.ylabel('MWh')
 plt.tight_layout()
 # Speichern statt anzeigen
-plt.savefig('eda_tagesprofil.png')
+plt.savefig(f'eda_tagesprofil_{safe_date_str}.png')
 plt.close()
 
 # 4. Erste Analyse-Ausgaben
@@ -91,7 +113,7 @@ if pv_col in df.columns:
     plt.title(f'Energieerzeugung {date_range_str}')
     plt.legend()
     plt.grid(True)
-    plt.savefig('eda_energieerzeugung.png')
+    plt.savefig(f'eda_energieerzeugung_{safe_date_str}.png')
     plt.close()
 
 # 6. Korrelations-Check
@@ -110,7 +132,7 @@ plt.xticks(rotation=10, ha='right', fontsize=9)
 plt.yticks(rotation=0, fontsize=9)
 plt.title('Korrelation zwischen den Energiequellen (SMARD-Rohdaten)', fontsize=14, pad=20)
 plt.tight_layout()
-plt.savefig('eda_korrelations_heatmap.png')
+plt.savefig(f'eda_korrelations_heatmap_{safe_date_str}.png')
 plt.close()
 
 # 7. 3D-Array: Features (X), Target (y)

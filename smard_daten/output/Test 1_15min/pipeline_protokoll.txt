@@ -1,3 +1,4 @@
+--- EDA Skript verarbeitet jetzt aktiv die Datei: /app/data/input/aktuelle_erzeugung.csv ---
 Erkannte Auflösung: Alle 15.0 Minuten. Window Size für 24h: 96
 --- Datensatz Info ---
 <class 'pandas.core.frame.DataFrame'>
@@ -48,15 +49,16 @@ Erster Zielwert, den das Modell lernen soll: 0.0
 --- Daten erfolgreich gespeichert! ---
 Erkannte Auflösung: Alle 15.0 Minuten. Window Size (24h): 96
 Starte Training...
-Epoch [10/150] | Train Loss: 0.02300 | Val Loss: 0.03964
-Epoch [20/150] | Train Loss: 0.01630 | Val Loss: 0.02597
-Epoch [30/150] | Train Loss: 0.01390 | Val Loss: 0.01744
-Epoch [40/150] | Train Loss: 0.00961 | Val Loss: 0.02062
-Epoch [50/150] | Train Loss: 0.00937 | Val Loss: 0.01310
-Epoch [60/150] | Train Loss: 0.00862 | Val Loss: 0.01373
-Epoch [70/150] | Train Loss: 0.00772 | Val Loss: 0.02056
-Epoch [80/150] | Train Loss: 0.00761 | Val Loss: 0.01283
-Early Stopping in Epoche 86
+Epoch [10/150] | Train Loss: 0.02299 | Val Loss: 0.03298
+Epoch [20/150] | Train Loss: 0.01454 | Val Loss: 0.02256
+Epoch [30/150] | Train Loss: 0.01404 | Val Loss: 0.02373
+Epoch [40/150] | Train Loss: 0.01073 | Val Loss: 0.02747
+Epoch [50/150] | Train Loss: 0.01000 | Val Loss: 0.01828
+Epoch [60/150] | Train Loss: 0.00901 | Val Loss: 0.01506
+Epoch [70/150] | Train Loss: 0.00813 | Val Loss: 0.01559
+Epoch [80/150] | Train Loss: 0.00731 | Val Loss: 0.01324
+Epoch [90/150] | Train Loss: 0.00718 | Val Loss: 0.01251
+Early Stopping in Epoche 93
 
 --- Modell Struktur ---
 ProbabilisticLSTM(
@@ -66,34 +68,32 @@ ProbabilisticLSTM(
 Shape der Gewichte (Input-to-Hidden): torch.Size([512, 5])
 
 --- Modell Evaluation ---
-PICP (Abdeckung des 80% Intervalls): 83.85%
-Median RMSE (q0.5): 235.52 MWh
+PICP (Abdeckung des 80% Intervalls): 77.60%
+Median RMSE (q0.5): 265.15 MWh
 
 --- Feature Importance (Einfluss auf Pinball Loss) ---
-Photovoltaik [MWh] Originalauflösungen: 0.335089
-hour_cos: 0.060684
-hour_sin: 0.024070
-Erdgas [MWh] Originalauflösungen: -0.000032
-Wind Onshore [MWh] Originalauflösungen: -0.000192
+Photovoltaik [MWh] Originalauflösungen: 0.307291
+hour_cos: 0.076664
+hour_sin: 0.021118
+Erdgas [MWh] Originalauflösungen: 0.001206
+Wind Onshore [MWh] Originalauflösungen: 0.000003
 
 --- Finales Modell und Scaler wurden gesichert! ---
 Erkannte Auflösung: Alle 15.0 Minuten. Window Size (24h): 96
 Starte RNN Training...
-Epoch [10/150] | Train Loss: 0.02055 | Val Loss: 0.02396
-Epoch [20/150] | Train Loss: 0.01637 | Val Loss: 0.01674
-Epoch [30/150] | Train Loss: 0.01500 | Val Loss: 0.01743
-Epoch [40/150] | Train Loss: 0.01303 | Val Loss: 0.01410
-Epoch [50/150] | Train Loss: 0.01049 | Val Loss: 0.01302
-Epoch [60/150] | Train Loss: 0.01103 | Val Loss: 0.01108
-Epoch [70/150] | Train Loss: 0.01051 | Val Loss: 0.01416
-Epoch [80/150] | Train Loss: 0.00802 | Val Loss: 0.00949
-Epoch [90/150] | Train Loss: 0.00890 | Val Loss: 0.01111
-Epoch [100/150] | Train Loss: 0.00806 | Val Loss: 0.00982
-Epoch [110/150] | Train Loss: 0.00845 | Val Loss: 0.00907
-Epoch [120/150] | Train Loss: 0.00734 | Val Loss: 0.00789
-Epoch [130/150] | Train Loss: 0.00712 | Val Loss: 0.00848
-Epoch [140/150] | Train Loss: 0.00698 | Val Loss: 0.00815
-Early Stopping in Epoche 142
+Epoch [10/150] | Train Loss: 0.01851 | Val Loss: 0.03681
+Epoch [20/150] | Train Loss: 0.01541 | Val Loss: 0.01925
+Epoch [30/150] | Train Loss: 0.01327 | Val Loss: 0.01312
+Epoch [40/150] | Train Loss: 0.01224 | Val Loss: 0.01512
+Epoch [50/150] | Train Loss: 0.01100 | Val Loss: 0.01379
+Epoch [60/150] | Train Loss: 0.00994 | Val Loss: 0.01051
+Epoch [70/150] | Train Loss: 0.00925 | Val Loss: 0.01287
+Epoch [80/150] | Train Loss: 0.00835 | Val Loss: 0.00947
+Epoch [90/150] | Train Loss: 0.00813 | Val Loss: 0.01014
+Epoch [100/150] | Train Loss: 0.00819 | Val Loss: 0.00946
+Epoch [110/150] | Train Loss: 0.00810 | Val Loss: 0.01074
+Epoch [120/150] | Train Loss: 0.00813 | Val Loss: 0.00946
+Early Stopping in Epoche 121
 
 --- RNN Modell Struktur ---
 ProbabilisticRNN(
@@ -103,14 +103,14 @@ ProbabilisticRNN(
 Shape der Gewichte (Input-to-Hidden): torch.Size([128, 5])
 
 --- RNN Modell Evaluation ---
-PICP (Abdeckung des 80% Intervalls): 91.15%
-RNN Median RMSE (q0.5): 104.47 MWh
+PICP (Abdeckung des 80% Intervalls): 85.94%
+RNN Median RMSE (q0.5): 124.80 MWh
 
 --- RNN Feature Importance (Einfluss auf Pinball Loss) ---
-Photovoltaik [MWh] Originalauflösungen: 0.412384
-hour_sin: 0.003938
-hour_cos: 0.003462
-Erdgas [MWh] Originalauflösungen: 0.000285
-Wind Onshore [MWh] Originalauflösungen: 0.000023
+Photovoltaik [MWh] Originalauflösungen: 0.411486
+hour_cos: 0.002383
+hour_sin: 0.001281
+Erdgas [MWh] Originalauflösungen: 0.000406
+Wind Onshore [MWh] Originalauflösungen: 0.000176
 
 --- Finales RNN Modell und Scaler wurden gesichert! ---
