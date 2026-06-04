@@ -1,0 +1,32 @@
+Starte RNN Training...
+Epoch [10/150] | Train Loss: 0.02524 | Val Loss: 0.02245
+Epoch [20/150] | Train Loss: 0.01914 | Val Loss: 0.02211
+Epoch [30/150] | Train Loss: 0.01703 | Val Loss: 0.01983
+Epoch [40/150] | Train Loss: 0.01465 | Val Loss: 0.01359
+Epoch [50/150] | Train Loss: 0.01437 | Val Loss: 0.01513
+Epoch [60/150] | Train Loss: 0.01216 | Val Loss: 0.01155
+Epoch [70/150] | Train Loss: 0.01144 | Val Loss: 0.00887
+Epoch [80/150] | Train Loss: 0.01091 | Val Loss: 0.00956
+Early Stopping in Epoche 85
+
+--- RNN Modell Struktur ---
+ProbabilisticRNN(
+  (rnn): RNN(5, 64, num_layers=2, batch_first=True, dropout=0.2)
+  (linear): Linear(in_features=64, out_features=3, bias=True)
+)
+Shape der Gewichte (Input-to-Hidden): torch.Size([64, 5])
+
+--- RNN Modell Evaluation ---
+PICP (Abdeckung des 80% Intervalls): 91.03%
+RNN Median RMSE (q0.5): 143.52 MWh
+
+--- RNN Feature Importance (Einfluss auf Pinball Loss) ---
+Photovoltaik [MWh] Originalauflösungen: 0.439845
+hour_cos: 0.009587
+hour_sin: 0.002303
+Erdgas [MWh] Originalauflösungen: 0.001349
+Wind Onshore [MWh] Originalauflösungen: 0.000221
+
+--- Finales RNN Modell und Scaler wurden gesichert! ---
+
+Process finished with exit code 0
