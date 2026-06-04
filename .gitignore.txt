@@ -1,0 +1,13 @@
+# Ignoriert alle CSV- und Pickle-Dateien in der SMARD-Datenstruktur
+smard_daten/input/*.csv
+smard_daten/output/*.csv
+smard_daten/output/*.pth
+smard_daten/output/*.txt
+smard_daten/output/*.png
+smard_daten/*.pkl
+
+Ignoriert alle CSV-Dateien in der Test csv-Datenstruktur
+Test csv/*.csv
+
+# Erlaubt Git ausdrücklich, die .gitkeep-Dateien zu tracken
+!.gitkeep
