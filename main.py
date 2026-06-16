@@ -68,6 +68,19 @@ if uploaded_file is not None:
                     for png_file in generierte_pngs:
                         shutil.move(png_file, os.path.join(OUTPUT_DIR, png_file))
 
+                    # 3. Verschiebt alle dynamischen Daten-CSVs (Tagesprofile, Lernkurven, Prognosen)
+                    # Der Filter greift bei eda_*, lstm_* und rnn_* gleichermaßen
+                    generierte_csvs = glob.glob("*_daten_*.csv")
+                    for csv_file in generierte_csvs:
+                        shutil.move(csv_file, os.path.join(OUTPUT_DIR, csv_file))
+
+                    # 4. Verschiebt die archivierten PyTorch-Modelle mit Datumsstempel
+                    archivierte_modelle = glob.glob("final_probabilistic_*.pth")
+                    for model_file in archivierte_modelle:
+                        # Falls die Datei durch feste_artifacts bereits verschoben wurde, ignorieren
+                        if os.path.exists(model_file):
+                            shutil.move(model_file, os.path.join(OUTPUT_DIR, model_file))
+
                 # Fängt Subprocess-Fehler ab (z.B. Fehler im LSTM-Skript)
                 except subprocess.CalledProcessError as e:
                     st.error("Fehler während der Ausführung! Ein Skript ist abgebrochen.")

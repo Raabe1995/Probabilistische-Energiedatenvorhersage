@@ -96,6 +96,7 @@ plt.tight_layout()
 # Speichern statt anzeigen
 plt.savefig(f'eda_tagesprofil_{safe_date_str}.png')
 plt.close()
+daily_profile.to_csv(f'eda_tagesprofil_daten_{safe_date_str}.csv', sep=';')
 
 # 4. Erste Analyse-Ausgaben
 print("--- Datensatz Info ---")
@@ -115,6 +116,7 @@ if pv_col in df.columns:
     plt.grid(True)
     plt.savefig(f'eda_energieerzeugung_{safe_date_str}.png')
     plt.close()
+    df[[pv_col, wind_col]].to_csv(f'eda_energieerzeugung_daten_{safe_date_str}.csv', sep=';')
 
 # 6. Korrelations-Check
 plt.figure(figsize=(14, 10))

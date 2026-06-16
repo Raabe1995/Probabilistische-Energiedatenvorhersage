@@ -25,6 +25,7 @@ start_date_str = df.index.min().strftime('%m.%Y')
 end_date_str = df.index.max().strftime('%m.%Y')
 date_range_str = start_date_str if start_date_str == end_date_str else f"{start_date_str} - {end_date_str}"
 
+safe_date_str = date_range_str.replace('.', '_').replace(' ', '').replace('-', '_')
 print(f"Erkannte Auflösung: Alle {time_delta_min} Minuten. Window Size (24h): {window_size}")
 
 # Zyklische Zeit-Features
@@ -160,8 +161,12 @@ plt.title('Lernkurve (Loss Verlauf)')
 plt.xlabel('Epoche')
 plt.ylabel('Loss')
 plt.legend()
-plt.savefig('lstm_lernkurve.png')
+plt.savefig(f'lstm_lernkurve_{safe_date_str}.png')
 plt.close()
+
+df_history = pd.DataFrame(history)
+df_history.index.name = 'Epoch'
+df_history.to_csv(f'lstm_lernkurve_daten_{safe_date_str}.csv', sep=';')
 
 # Struktur und Gewichte anzeigen
 print("\n--- Modell Struktur ---")
@@ -199,8 +204,16 @@ plt.fill_between(range(len(y_test_mwh)),
 plt.title(f'Probabilistische Photovoltaik-Vorhersage (Multivariat {date_range_str})')
 plt.ylabel('MWh')
 plt.legend()
-plt.savefig('lstm_vorhersage_intervall.png')
+plt.savefig(f'lstm_vorhersage_intervall_{safe_date_str}.png')
 plt.close()
+
+df_forecast = pd.DataFrame({
+    'Echte_Erzeugung_MWh': y_test_mwh.flatten(),
+    'Quantil_0_1_MWh': preds_rescaled[0].flatten(),
+    'Median_q0_5_MWh': preds_rescaled[1].flatten(),
+    'Quantil_0_9_MWh': preds_rescaled[2].flatten()
+})
+df_forecast.to_csv(f'lstm_vorhersage_daten_{safe_date_str}.csv', sep=';')
 
 # 7. Feature Importance (Permutation)
 model.eval()
@@ -221,7 +234,7 @@ for col, imp in sorted(feature_importance.items(), key=lambda x: x[1], reverse=T
 
 # 8. Modell
 import joblib
-torch.save(model.state_dict(), 'final_probabilistic_lstm.pth')
+torch.save(model.state_dict(), f'final_probabilistic_lstm_{safe_date_str}.pth')
 joblib.dump(scaler_features, 'scaler_features.pkl')
 joblib.dump(scaler_target, 'scaler_target.pkl')
 
