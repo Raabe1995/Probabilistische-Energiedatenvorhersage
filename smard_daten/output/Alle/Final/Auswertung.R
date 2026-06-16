@@ -1,10 +1,9 @@
 #------------------------------------------------------------------------
+#
 # Probabilistische Energiedatenvorhersage
-# 
-# Konzepte des Machine Learnings
 #
 # Jan-Christian Raabe
-# FH Wedel
+#
 #------------------------------------------------------------------------
 
 #----------------------------
@@ -74,7 +73,7 @@ ggplot(df_long, aes(x = Timestamp, y = Erzeugung_MWh, color = Energiequelle)) +
     axis.title.y = element_text(margin = margin(r = 10))
   )
 
-# 6. Plot in hoher Qualität speichern (optional)
+# 6. Plot speichern
 ggsave("r_plot_energieerzeugung_04_2026.png", width = 10, height = 5, dpi = 300)
 
 #----------------------------
@@ -112,7 +111,7 @@ ggplot(df_profile_long, aes(x = Stunde, y = Durchschnitt_Erzeugung_MWh, color = 
   # Punkte auf den Stundenwerten für bessere Lesbarkeit
   geom_point(size = 2) +
   
-  # Farbpalette (Synchron zu deinem ersten Plot)
+  # Farbpalette
   scale_color_manual(values = c("Photovoltaik" = "#E69F00", "Wind_Onshore" = "#0072B2"),
                      labels = c("Photovoltaik" = "Photovoltaik (Solar)", "Wind_Onshore" = "Wind Onshore")) +
   
@@ -141,7 +140,7 @@ ggplot(df_profile_long, aes(x = Stunde, y = Durchschnitt_Erzeugung_MWh, color = 
     axis.title.y = element_text(margin = margin(r = 10))
   )
 
-# 5. Plot speichern (optional)
+# 5. Plot speichern
 ggsave("r_plot_tagesprofil_04_2026.png", width = 10, height = 5, dpi = 300)
 
 #-----------------------------
@@ -154,11 +153,11 @@ library(readr)
 library(dplyr)
 library(tidyr)
 
-# 2. LSTM-Lernkurve DIREKT über den Pfad einlesen (OHNE file.choose!)
+# 2. LSTM-Lernkurve DIREKT über den Pfad einlesen
 file_path_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 09. bis 19.04.2026_15min/lstm_lernkurve_daten_04_2026.csv"
 df_lstm <- read_delim(file_path_lstm, delim = ";", show_col_types = FALSE)
 
-# 3. RNN-Lernkurve DIREKT über den Pfad einlesen (OHNE file.choose!)
+# 3. RNN-Lernkurve DIREKT über den Pfad einlesen
 file_path_rnn <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 09. bis 19.04.2026_15min/rnn_lernkurve_daten_04_2026.csv"
 df_rnn <- read_delim(file_path_rnn, delim = ";", show_col_types = FALSE)
 
@@ -212,7 +211,7 @@ ggplot(df_long, aes(x = Epoche, y = Loss, color = Modell, linetype = Datensatz))
     axis.title.y = element_text(margin = margin(r = 10))
   )
 
-# 6. Plot in hoher Qualität speichern
+# 6. Plot speichern
 ggsave("r_plot_lernkurven_vergleich.png", width = 10, height = 5, dpi = 300)
 
 #--------------------------------------------------------------------------------------------------
@@ -240,7 +239,6 @@ df_pred_lstm <- read_delim(file_path_pred_lstm, delim = ";", show_col_types = FA
 df_pred_rnn  <- read_delim(file_path_pred_rnn, delim = ";", show_col_types = FALSE)
 
 # 4. Daten aufbereiten und zusammenführen
-# Wir fügen eine Index-Spalte für den zeitlichen Verlauf hinzu (da die CSVs Zeilenindizes haben)
 df_pred_lstm <- df_pred_lstm %>% 
   mutate(Index = row_number(), Modell = "LSTM")
 
@@ -300,7 +298,7 @@ ggplot(df_preds_all, aes(x = Index)) +
     axis.title.y = element_text(margin = margin(r = 10))
   )
 
-# 6. Plot hochauflösend für das Dokument speichern
+# 6. Plot speichern
 ggsave("r_plot_vorhersage_vergleich.png", width = 12, height = 7, dpi = 300)
 
 #-----------------------------
@@ -313,11 +311,11 @@ library(readr)
 library(dplyr)
 library(tidyr)
 
-# 2. LSTM-Lernkurve DIREKT über den Pfad einlesen (OHNE file.choose!)
+# 2. LSTM-Lernkurve DIREKT über den Pfad einlesen
 file_path_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 09. bis 19.04.2026_60min/lstm_lernkurve_daten_04_2026.csv"
 df_lstm <- read_delim(file_path_lstm, delim = ";", show_col_types = FALSE)
 
-# 3. RNN-Lernkurve DIREKT über den Pfad einlesen (OHNE file.choose!)
+# 3. RNN-Lernkurve DIREKT über den Pfad einlesen
 file_path_rnn <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 09. bis 19.04.2026_60min/rnn_lernkurve_daten_04_2026.csv"
 df_rnn <- read_delim(file_path_rnn, delim = ";", show_col_types = FALSE)
 
@@ -371,7 +369,7 @@ ggplot(df_long, aes(x = Epoche, y = Loss, color = Modell, linetype = Datensatz))
     axis.title.y = element_text(margin = margin(r = 10))
   )
 
-# 6. Plot in hoher Qualität speichern
+# 6. Plot speichern
 ggsave("r_plot_lernkurven_vergleich.png", width = 10, height = 5, dpi = 300)
 
 #--------------------------------------------------------------------------------------------------
@@ -438,7 +436,7 @@ final_plot <- ggplot(df_preds_all, aes(x = Index)) +
 # Zeigt den Plot im RStudio-Fenster an
 print(final_plot)
 
-# 6. Plot hochauflösend direkt im Zielordner ablegen
+# 6. Plot speichern
 output_file_path <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/r_plot_vorhersage_vergleich_60min.png"
 
 ggsave(
@@ -461,11 +459,11 @@ library(readr)
 library(dplyr)
 library(tidyr)
 
-# 2. LSTM-Lernkurve DIREKT über den Pfad einlesen (OHNE file.choose!)
+# 2. LSTM-Lernkurve DIREKT über den Pfad einlesen
 file_path_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 01.03. bis 19.04.2026_15min/lstm_lernkurve_daten_03_2026_04_2026.csv"
 df_lstm <- read_delim(file_path_lstm, delim = ";", show_col_types = FALSE)
 
-# 3. RNN-Lernkurve DIREKT über den Pfad einlesen (OHNE file.choose!)
+# 3. RNN-Lernkurve DIREKT über den Pfad einlesen
 file_path_rnn <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 01.03. bis 19.04.2026_15min/rnn_lernkurve_daten_03_2026_04_2026.csv"
 df_rnn <- read_delim(file_path_rnn, delim = ";", show_col_types = FALSE)
 
@@ -519,7 +517,7 @@ ggplot(df_long, aes(x = Epoche, y = Loss, color = Modell, linetype = Datensatz))
     axis.title.y = element_text(margin = margin(r = 10))
   )
 
-# 6. Plot in hoher Qualität speichern
+# 6. Plot speichern
 ggsave("r_plot_lernkurven_vergleich.png", width = 10, height = 5, dpi = 300)
 
 #--------------------------------------------------------------------------------------------------------------------
@@ -533,7 +531,7 @@ library(dplyr)
 library(tidyr)
 library(scales)
 
-# 2. Pfade zu den Vorhersagedaten definieren (KORRIGIERT: vorhersage statt lernkurve)
+# 2. Pfade zu den Vorhersagedaten definieren
 file_path_pred_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 01.03. bis 19.04.2026_15min/lstm_vorhersage_daten_03_2026_04_2026.csv"
 file_path_pred_rnn  <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 01.03. bis 19.04.2026_15min/rnn_vorhersage_daten_03_2026_04_2026.csv"
 
@@ -547,7 +545,6 @@ df_pred_lstm <- read_delim(file_path_pred_lstm, delim = ";", show_col_types = FA
 df_pred_rnn  <- read_delim(file_path_pred_rnn, delim = ";", show_col_types = FALSE)
 
 # 4. Daten aufbereiten, Spalten positionsbasiert auswählen/umbenennen und zusammenführen
-# Wir greifen uns gezielt die letzten 4 Spalten, um eine eventuelle leere Index-Spalte zu ignorieren.
 
 df_pred_lstm <- df_pred_lstm %>% 
   # Schmeißt eventuelle leere Spalten ohne Namen raus und behält nur die echten Datenspalten
@@ -601,7 +598,7 @@ final_plot <- ggplot(df_preds_all, aes(x = Index)) +
 # Zeigt den Plot im RStudio-Fenster an
 print(final_plot)
 
-# 6. Plot hochauflösend im Hauptordner 'Final' ablegen (KORRIGIERT: Name spiegelt 15min wider)
+# 6. Plot speichern
 output_file_path <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/r_plot_vorhersage_vergleich_15min_langzeit.png"
 
 ggsave(
