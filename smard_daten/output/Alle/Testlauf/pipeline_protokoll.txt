@@ -1,0 +1,116 @@
+--- EDA Skript verarbeitet jetzt aktiv die Datei: /app/data/input/aktuelle_erzeugung.csv ---
+Erkannte Auflösung: Alle 60.0 Minuten. Window Size für 24h: 24
+--- Datensatz Info ---
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 264 entries, 2026-04-09 00:00:00 to 2026-04-19 23:00:00
+Data columns (total 19 columns):
+ #   Column                                                Non-Null Count  Dtype  
+---  ------                                                --------------  -----  
+ 0   Datum von                                             264 non-null    object 
+ 1   Datum bis                                             264 non-null    object 
+ 2   Biomasse [MWh] Berechnete Auflösungen                 264 non-null    float64
+ 3   Wasserkraft [MWh] Berechnete Auflösungen              264 non-null    float64
+ 4   Wind Offshore [MWh] Berechnete Auflösungen            264 non-null    float64
+ 5   Wind Onshore [MWh] Berechnete Auflösungen             264 non-null    float64
+ 6   Photovoltaik [MWh] Berechnete Auflösungen             264 non-null    float64
+ 7   Sonstige Erneuerbare [MWh] Berechnete Auflösungen     264 non-null    float64
+ 8   Kernenergie [MWh] Berechnete Auflösungen              264 non-null    float64
+ 9   Braunkohle [MWh] Berechnete Auflösungen               264 non-null    float64
+ 10  Steinkohle [MWh] Berechnete Auflösungen               264 non-null    float64
+ 11  Erdgas [MWh] Berechnete Auflösungen                   264 non-null    float64
+ 12  Pumpspeicher [MWh] Berechnete Auflösungen             264 non-null    float64
+ 13  Sonstige Konventionelle [MWh] Berechnete Auflösungen  264 non-null    float64
+ 14  hour                                                  264 non-null    int32  
+ 15  hour_sin                                              264 non-null    float64
+ 16  hour_cos                                              264 non-null    float64
+ 17  weekday                                               264 non-null    int32  
+ 18  is_weekend                                            264 non-null    int64  
+dtypes: float64(14), int32(2), int64(1), object(2)
+memory usage: 39.2+ KB
+None
+
+--- Statistische Kennzahlen (Auszug) ---
+       Photovoltaik [MWh] Berechnete Auflösungen  Wind Onshore [MWh] Berechnete Auflösungen
+count                                 264.000000                                 264.000000
+mean                                10939.564924                                7836.211894
+std                                 14415.372939                                6593.182160
+min                                     0.000000                                 677.660000
+25%                                     0.000000                                2814.185000
+50%                                  1859.905000                                5659.115000
+75%                                 19837.250000                                9944.347500
+max                                 48300.330000                               30616.620000
+
+--- Daten-Transformation für ML ---
+Eingabe-Sequenzen (X) Shape: (240, 24)
+Ziel-Werte (y) Shape: (240,)
+
+Erster Zielwert, den das Modell lernen soll: 0.0
+
+--- Daten erfolgreich gespeichert! ---
+Erkannte Auflösung: Alle 60.0 Minuten. Window Size (24h): 24
+Starte Training...
+Epoch [10/150] | Train Loss: 0.11566 | Val Loss: 0.20665
+Epoch [20/150] | Train Loss: 0.05428 | Val Loss: 0.12731
+Epoch [30/150] | Train Loss: 0.04184 | Val Loss: 0.09728
+Epoch [40/150] | Train Loss: 0.04064 | Val Loss: 0.08613
+Epoch [50/150] | Train Loss: 0.03513 | Val Loss: 0.07764
+Epoch [60/150] | Train Loss: 0.03461 | Val Loss: 0.07601
+Epoch [70/150] | Train Loss: 0.03023 | Val Loss: 0.07536
+Epoch [80/150] | Train Loss: 0.03263 | Val Loss: 0.07780
+Epoch [90/150] | Train Loss: 0.02867 | Val Loss: 0.07027
+Epoch [100/150] | Train Loss: 0.03008 | Val Loss: 0.06950
+Early Stopping in Epoche 103
+
+--- Modell Struktur ---
+ProbabilisticLSTM(
+  (lstm): LSTM(5, 128, num_layers=2, batch_first=True, dropout=0.2)
+  (linear): Linear(in_features=128, out_features=3, bias=True)
+)
+Shape der Gewichte (Input-to-Hidden): torch.Size([512, 5])
+
+--- Modell Evaluation ---
+PICP (Abdeckung des 80% Intervalls): 83.33%
+Median RMSE (q0.5): 3365.24 MWh
+
+--- Feature Importance (Einfluss auf Pinball Loss) ---
+hour_sin: 0.150553
+Photovoltaik [MWh] Berechnete Auflösungen: 0.078849
+hour_cos: 0.057687
+Erdgas [MWh] Berechnete Auflösungen: 0.008566
+Wind Onshore [MWh] Berechnete Auflösungen: -0.000460
+
+--- Finales Modell und Scaler wurden gesichert! ---
+Erkannte Auflösung: Alle 60.0 Minuten. Window Size (24h): 24
+Starte RNN Training...
+Epoch [10/150] | Train Loss: 0.05838 | Val Loss: 0.10978
+Epoch [20/150] | Train Loss: 0.04514 | Val Loss: 0.06949
+Epoch [30/150] | Train Loss: 0.03769 | Val Loss: 0.04811
+Epoch [40/150] | Train Loss: 0.03870 | Val Loss: 0.06151
+Epoch [50/150] | Train Loss: 0.03389 | Val Loss: 0.05083
+Epoch [60/150] | Train Loss: 0.03153 | Val Loss: 0.03877
+Epoch [70/150] | Train Loss: 0.03176 | Val Loss: 0.04256
+Epoch [80/150] | Train Loss: 0.02736 | Val Loss: 0.03716
+Epoch [90/150] | Train Loss: 0.02683 | Val Loss: 0.03720
+Epoch [100/150] | Train Loss: 0.02799 | Val Loss: 0.03787
+Epoch [110/150] | Train Loss: 0.02616 | Val Loss: 0.03593
+Early Stopping in Epoche 119
+
+--- RNN Modell Struktur ---
+ProbabilisticRNN(
+  (rnn): RNN(5, 128, num_layers=2, batch_first=True, dropout=0.2)
+  (linear): Linear(in_features=128, out_features=3, bias=True)
+)
+Shape der Gewichte (Input-to-Hidden): torch.Size([128, 5])
+
+--- RNN Modell Evaluation ---
+PICP (Abdeckung des 80% Intervalls): 81.25%
+RNN Median RMSE (q0.5): 1773.70 MWh
+
+--- RNN Feature Importance (Einfluss auf Pinball Loss) ---
+Photovoltaik [MWh] Berechnete Auflösungen: 0.307521
+hour_cos: 0.036005
+Erdgas [MWh] Berechnete Auflösungen: 0.014771
+hour_sin: 0.014211
+Wind Onshore [MWh] Berechnete Auflösungen: 0.005983
+
+--- Finales RNN Modell und Scaler wurden gesichert! ---
