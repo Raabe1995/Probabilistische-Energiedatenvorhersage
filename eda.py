@@ -1,4 +1,4 @@
-import sys
+import argparse
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -6,15 +6,22 @@ import seaborn as sns
 import os
 import glob
 
+from training_utils import merge_weather_features
+
 # 1. Daten laden (Komplett dynamisch)
 
 # Ordner definieren, in den Docker die Dateien legt
 input_dir = '/app/data/input' if os.path.exists('/app/data/input') else '.'
 
+parser = argparse.ArgumentParser(description="EDA und Datenbereinigung fuer SMARD-Marktdaten.")
+parser.add_argument("input_csv", nargs="?", help="Pfad zur SMARD-CSV-Datei")
+parser.add_argument("--weather-csv", help="Optionale Wetter-CSV mit Zeitstempel und numerischen Wetterfeatures")
+args = parser.parse_args()
+
 try:
-    # Wenn ein Argument übergeben wurde, wird es genutzt.
-    if len(sys.argv) > 1:
-        input_filename = sys.argv[1]
+    # Wenn ein Argument uebergeben wurde, wird es genutzt.
+    if args.input_csv:
+        input_filename = args.input_csv
     else:
         # Ansonsten: Sucht automatisch nach jeder .csv-Datei im Input-Ordner
         csv_files = glob.glob(os.path.join(input_dir, '*.csv'))
@@ -45,7 +52,6 @@ for col in cols_to_fix:
     df[col] = df[col].astype(str).str.replace('.', '', regex=False).str.replace(',', '.')
     df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0)
 
-# Definition der Spaltennamen
 # Definition der Spaltennamen (dynamisch suchen)
 pv_col = [c for c in df.columns if 'Photovoltaik' in c][0]
 wind_col = [c for c in df.columns if 'Wind Onshore' in c][0]
@@ -78,6 +84,13 @@ print(f"Erkannte Auflösung: Alle {time_delta_min} Minuten. Window Size für 24h
 # Flexibles Schneiden / Bereinigen von leeren Zeilen am Ende
 df = df.dropna()
 
+# Optionale Wetterdaten zeitlich auf die SMARD-Zeitreihe mergen.
+df, weather_cols = merge_weather_features(df, args.weather_csv)
+if weather_cols:
+    print(f"Wetterfeatures eingebunden: {', '.join(weather_cols)}")
+else:
+    print("Keine Wetterfeatures eingebunden.")
+
 
 # 3. Zyklisches Feature Engineering
 df['hour'] = df.index.hour
@@ -86,6 +99,8 @@ df['hour_cos'] = np.cos(2 * np.pi * df['hour'] / 24)
 
 # Zusätzliche Zeit-Features
 df['weekday'] = df.index.weekday
+df['weekday_sin'] = np.sin(2 * np.pi * df['weekday'] / 7)
+df['weekday_cos'] = np.cos(2 * np.pi * df['weekday'] / 7)
 df['is_weekend'] = df['weekday'].isin([5, 6]).astype(int)
 
 # Aggregierte Profile visualisieren
@@ -120,10 +135,11 @@ if pv_col in df.columns:
 
 # 6. Korrelations-Check
 plt.figure(figsize=(14, 10))
+correlation_cols = [col for col in df.columns if pd.api.types.is_numeric_dtype(df[col])]
 
 # Heatmap erstellen
 ax = sns.heatmap(
-    df[cols_to_fix].corr(),
+    df[correlation_cols].corr(),
     annot=False,
     cmap='coolwarm',
     cbar_kws={'label': 'Pearson-Korrelationskoeffizient (r)'}

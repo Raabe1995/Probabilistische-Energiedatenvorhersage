@@ -1,0 +1,290 @@
+{"kind":"deck","id":"pr/1gzmtt","name":"Deck"}
+{"kind":"layout","layoutId":"7cb5fe1a-c301-4c75-a180-d74055d9c699","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"718af42c-ebf8-4334-819e-a572aca9eeb9","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/si4gc7","slide":1,"title":"Probabilistische","textShapes":14}
+{"kind":"textbox","id":"sh/ji5snelo","slide":1,"text":"Probabilistische\nEnergiedaten-\nvorhersage","textPreview":"Probabilistische | Energiedaten- | vorhersage","textChars":41,"textLines":3,"bbox":[42,48,620,195]}
+{"kind":"textbox","id":"sh/c3ylc7u5","slide":1,"text":"Unsicherheit in Photovoltaik-Prognosen sichtbar machen","textPreview":"Unsicherheit in Photovoltaik-Prognosen sichtbar machen","textChars":54,"textLines":1,"bbox":[46,262,575,64]}
+{"kind":"shape","id":"sh/1kre1w7m","slide":1,"bbox":[42,330,520,4]}
+{"kind":"textbox","id":"sh/ulwval87","slide":1,"text":"Projektvorstellung für Universität und Kurs","textPreview":"Projektvorstellung für Universität und Kurs","textChars":43,"textLines":1,"bbox":[46,360,540,42]}
+{"kind":"textbox","id":"sh/j6tovaho","slide":1,"text":"SMARD-Marktdaten · LSTM/RNN · Quantilregression · Streamlit-Dashboard","textPreview":"SMARD-Marktdaten · LSTM/RNN · Quantilregression · Streamlit-Dashboard","textChars":69,"textLines":1,"bbox":[46,404,590,64]}
+{"kind":"shape","id":"sh/crmhk3q5","slide":1,"bbox":[710,64,490,450]}
+{"kind":"textbox","id":"sh/1cfa9w3m","slide":1,"text":"q0.1","textPreview":"q0.1","textChars":4,"textLines":1,"bbox":[760,124,100,45]}
+{"kind":"textbox","id":"sh/qh0fepkz","slide":1,"text":"q0.5","textPreview":"q0.5","textChars":4,"textLines":1,"bbox":[760,224,100,45]}
+{"kind":"textbox","id":"sh/j2t83itg","slide":1,"text":"q0.9","textPreview":"q0.9","textChars":4,"textLines":1,"bbox":[760,324,100,45]}
+{"kind":"textbox","id":"sh/byhgn29g","slide":1,"text":"untere Grenze","textPreview":"untere Grenze","textChars":13,"textLines":1,"bbox":[875,130,230,34]}
+{"kind":"textbox","id":"sh/idonyd0z","slide":1,"text":"Median-Prognose","textPreview":"Median-Prognose","textChars":15,"textLines":1,"bbox":[875,230,230,34]}
+{"kind":"textbox","id":"sh/t47y1kre","slide":1,"text":"obere Grenze","textPreview":"obere Grenze","textChars":12,"textLines":1,"bbox":[875,330,230,34]}
+{"kind":"shape","id":"sh/0je9cvix","slide":1,"bbox":[840,164,280,4]}
+{"kind":"shape","id":"sh/b6xkf6dc","slide":1,"bbox":[840,264,280,4]}
+{"kind":"shape","id":"sh/il0rqd4v","slide":1,"bbox":[840,364,280,4]}
+{"kind":"shape","id":"sh/tcj6tova","slide":1,"bbox":[0,585,1280,135]}
+{"kind":"textbox","id":"sh/0rqd4vmt","slide":1,"text":"Zentrale Idee","textPreview":"Zentrale Idee","textChars":13,"textLines":1,"bbox":[46,616,200,28]}
+{"kind":"textbox","id":"sh/bi9s36hc","slide":1,"text":"Das Modell soll nicht nur einen Wert schätzen, sondern zeigen, wie breit der plausible Prognosebereich ist.","textPreview":"Das Modell soll nicht nur einen Wert schätzen, sondern zeigen, wie breit der plausible Prognosebereich ist.","textChars":107,"textLines":1,"bbox":[250,608,825,48]}
+{"kind":"textbox","id":"sh/ixczed8v","slide":1,"text":"Probabilistische Energiedatenvorhersage","textPreview":"Probabilistische Energiedatenvorhersage","textChars":39,"textLines":1,"bbox":[42,672,460,24]}
+{"kind":"textbox","id":"sh/al87ed8b","slide":1,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[1180,672,58,24]}
+{"kind":"notes","id":"nt/si4gc7","slide":1,"text":""}
+{"kind":"slide","id":"sl/diwgbk","slide":2,"title":"AUSGANGSPUNKT","textShapes":15}
+{"kind":"textbox","id":"sh/87ed8bat","slide":2,"text":"AUSGANGSPUNKT","textPreview":"AUSGANGSPUNKT","textChars":13,"textLines":1,"bbox":[42,30,560,24]}
+{"kind":"textbox","id":"sh/fmlkjm1c","slide":2,"text":"Photovoltaik braucht keine exakte Antwort, sondern einen belastbaren Bereich","textPreview":"Photovoltaik braucht keine exakte Antwort, sondern einen belastbaren Bereich","textChars":76,"textLines":1,"bbox":[42,58,960,92]}
+{"kind":"shape","id":"sh/q1orytsv","slide":2,"bbox":[42,150,1196,1.2]}
+{"kind":"shape","id":"sh/1gvy90je","slide":2,"bbox":[42,210,350,250]}
+{"kind":"textbox","id":"sh/8z25kb6x","slide":2,"text":"stark","textPreview":"stark","textChars":5,"textLines":1,"bbox":[66,232,302,62]}
+{"kind":"textbox","id":"sh/je9cvixc","slide":2,"text":"Volatilität","textPreview":"Volatilität","textChars":11,"textLines":1,"bbox":[66,305,302,30]}
+{"kind":"textbox","id":"sh/qtcj6tov","slide":2,"text":"PV-Erzeugung folgt Tagesgang, Jahreszeit und Wetter. Einzelne Punktwerte unterschätzen diese Unsicherheit.","textPreview":"PV-Erzeugung folgt Tagesgang, Jahreszeit und Wetter. Einzelne Punktwerte unterschätzen diese Unsicherheit.","textChars":106,"textLines":1,"bbox":[66,342,302,102]}
+{"kind":"shape","id":"sh/xczed8v6","slide":2,"bbox":[465,210,350,250]}
+{"kind":"textbox","id":"sh/8v6psfil","slide":2,"text":"riskant","textPreview":"riskant","textChars":7,"textLines":1,"bbox":[489,232,302,62]}
+{"kind":"textbox","id":"sh/yhgn29gr","slide":2,"text":"Planung","textPreview":"Planung","textChars":7,"textLines":1,"bbox":[489,305,302,30]}
+{"kind":"textbox","id":"sh/n29gr2p8","slide":2,"text":"Bei Abweichungen müssen Netz und Markt kurzfristig reagieren. Relevant ist daher nicht nur der Mittelwert.","textPreview":"Bei Abweichungen müssen Netz und Markt kurzfristig reagieren. Relevant ist daher nicht nur der Mittelwert.","textChars":106,"textLines":1,"bbox":[489,342,302,102]}
+{"kind":"shape","id":"sh/gn29gr2p","slide":2,"bbox":[888,210,350,250]}
+{"kind":"textbox","id":"sh/58z25kb6","slide":2,"text":"80%","textPreview":"80%","textChars":3,"textLines":1,"bbox":[912,232,302,62]}
+{"kind":"textbox","id":"sh/y90je9cv","slide":2,"text":"Intervall","textPreview":"Intervall","textChars":9,"textLines":1,"bbox":[912,305,302,30]}
+{"kind":"textbox","id":"sh/nuxc3ylc","slide":2,"text":"Ein Unsicherheitsband macht sichtbar, in welchem Bereich echte Werte statistisch erwartet werden.","textPreview":"Ein Unsicherheitsband macht sichtbar, in welchem Bereich echte Werte statistisch erwartet werden.","textChars":97,"textLines":1,"bbox":[912,342,302,102]}
+{"kind":"textbox","id":"sh/gbq1oryt","slide":2,"text":"Kommunikationsziel der Prognose","textPreview":"Kommunikationsziel der Prognose","textChars":31,"textLines":1,"bbox":[42,525,360,32]}
+{"kind":"textbox","id":"sh/5wjudg7a","slide":2,"text":"Aus „Die PV-Erzeugung liegt morgen bei X“ wird „Die PV-Erzeugung liegt wahrscheinlich zwischen unterer und oberer Grenze; der Median ist unsere zentrale Schätzung“.","textPreview":"Aus „Die PV-Erzeugung liegt morgen bei X“ wird „Die PV-Erzeugung liegt wahrscheinlich zwischen unterer und oberer Grenze; der Median ist ...","textChars":164,"textLines":1,"bbox":[42,565,1120,62]}
+{"kind":"textbox","id":"sh/u54zidon","slide":2,"text":"Probabilistische Energiedatenvorhersage","textPreview":"Probabilistische Energiedatenvorhersage","textChars":39,"textLines":1,"bbox":[42,672,460,24]}
+{"kind":"textbox","id":"sh/nqxs72x4","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1180,672,58,24]}
+{"kind":"notes","id":"nt/diwgbk","slide":2,"text":""}
+{"kind":"slide","id":"sl/pj2w2v","slide":3,"title":"SYSTEMÜBERBLICK","textShapes":21}
+{"kind":"textbox","id":"sh/1gvy90je","slide":3,"text":"SYSTEMÜBERBLICK","textPreview":"SYSTEMÜBERBLICK","textChars":15,"textLines":1,"bbox":[42,30,560,24]}
+{"kind":"textbox","id":"sh/qtcj6tov","slide":3,"text":"Die Pipeline führt von Rohdaten zu erklärbaren Prognoseergebnissen","textPreview":"Die Pipeline führt von Rohdaten zu erklärbaren Prognoseergebnissen","textChars":66,"textLines":1,"bbox":[42,58,960,92]}
+{"kind":"shape","id":"sh/je9cvixc","slide":3,"bbox":[42,150,1196,1.2]}
+{"kind":"shape","id":"sh/87ed8bat","slide":3,"bbox":[42,215,220,170]}
+{"kind":"textbox","id":"sh/xs72x4na","slide":3,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[60,233,44,34]}
+{"kind":"textbox","id":"sh/q1orytsv","slide":3,"text":"SMARD-CSV","textPreview":"SMARD-CSV","textChars":9,"textLines":1,"bbox":[110,231,134,34]}
+{"kind":"textbox","id":"sh/fmlkjm1c","slide":3,"text":"Upload der Energiedaten, Parsing deutscher Zahlenformate und Zeitstempel.","textPreview":"Upload der Energiedaten, Parsing deutscher Zahlenformate und Zeitstempel.","textChars":73,"textLines":1,"bbox":[60,277,184,96]}
+{"kind":"shape","id":"sh/8jqh0fep","slide":3,"bbox":[288,215,220,170]}
+{"kind":"textbox","id":"sh/x4nap4r6","slide":3,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[306,233,44,34]}
+{"kind":"textbox","id":"sh/1w7mp0bi","slide":3,"text":"EDA","textPreview":"EDA","textChars":3,"textLines":1,"bbox":[356,231,134,34]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":3,"text":"Zeitverlauf, Tagesprofil und Korrelationssicht machen die Datenstruktur sichtbar.","textPreview":"Zeitverlauf, Tagesprofil und Korrelationssicht machen die Datenstruktur sichtbar.","textChars":81,"textLines":1,"bbox":[306,277,184,96]}
+{"kind":"shape","id":"sh/jqh0fepk","slide":3,"bbox":[534,215,220,170]}
+{"kind":"textbox","id":"sh/q5o7qpg3","slide":3,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[552,233,44,34]}
+{"kind":"textbox","id":"sh/18jqh0fe","slide":3,"text":"Features","textPreview":"Features","textChars":8,"textLines":1,"bbox":[602,231,134,34]}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":3,"text":"PV-Historie, zyklische Zeitfeatures, Wochenende, Wind Onshore und Erdgas.","textPreview":"PV-Historie, zyklische Zeitfeatures, Wochenende, Wind Onshore und Erdgas.","textChars":73,"textLines":1,"bbox":[552,277,184,96]}
+{"kind":"shape","id":"sh/j2t83itg","slide":3,"bbox":[780,215,220,170]}
+{"kind":"textbox","id":"sh/qh0fepkz","slide":3,"text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[798,233,44,34]}
+{"kind":"textbox","id":"sh/1cfa9w3m","slide":3,"text":"Training","textPreview":"Training","textChars":8,"textLines":1,"bbox":[848,231,134,34]}
+{"kind":"textbox","id":"sh/crmhk3q5","slide":3,"text":"LSTM und RNN lernen q0.1, q0.5 und q0.9 mit Pinball Loss.","textPreview":"LSTM und RNN lernen q0.1, q0.5 und q0.9 mit Pinball Loss.","textChars":57,"textLines":1,"bbox":[798,277,184,96]}
+{"kind":"shape","id":"sh/sfil0rqd","slide":3,"bbox":[1026,215,212,170]}
+{"kind":"textbox","id":"sh/h0fepkzu","slide":3,"text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[1044,233,44,34]}
+{"kind":"textbox","id":"sh/a9w3m94f","slide":3,"text":"Dashboard","textPreview":"Dashboard","textChars":9,"textLines":1,"bbox":[1094,231,126,34]}
+{"kind":"textbox","id":"sh/zupwb2hw","slide":3,"text":"Metriken, Plots, Dateien und regelbasierte Einordnung werden direkt angezeigt.","textPreview":"Metriken, Plots, Dateien und regelbasierte Einordnung werden direkt angezeigt.","textChars":78,"textLines":1,"bbox":[1044,277,176,96]}
+{"kind":"shape","id":"sh/orytsvu9","slide":3,"bbox":[42,460,1196,120]}
+{"kind":"textbox","id":"sh/hcrmhk3q","slide":3,"text":"Warum diese Struktur wichtig ist","textPreview":"Warum diese Struktur wichtig ist","textChars":32,"textLines":1,"bbox":[74,492,310,34]}
+{"kind":"textbox","id":"sh/al87ed8b","slide":3,"text":"Das Projekt zeigt nicht nur ein trainiertes Modell, sondern den vollständigen Workflow: Datenqualität prüfen, methodisch sauber splitten, probabilistisch trainieren, kritisch bewerten und Ergebnisse verständlich präsentieren.","textPreview":"Das Projekt zeigt nicht nur ein trainiertes Modell, sondern den vollständigen Workflow: Datenqualität prüfen, methodisch sauber splitten,...","textChars":225,"textLines":1,"bbox":[395,486,790,70]}
+{"kind":"textbox","id":"sh/z61032ls","slide":3,"text":"Probabilistische Energiedatenvorhersage","textPreview":"Probabilistische Energiedatenvorhersage","textChars":39,"textLines":1,"bbox":[42,672,460,24]}
+{"kind":"textbox","id":"sh/oza1gvy9","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[1180,672,58,24]}
+{"kind":"notes","id":"nt/pj2w2v","slide":3,"text":""}
+{"kind":"slide","id":"sl/7pnmc1","slide":4,"title":"METHODIK","textShapes":16}
+{"kind":"textbox","id":"sh/kjm1cfa9","slide":4,"text":"METHODIK","textPreview":"METHODIK","textChars":8,"textLines":1,"bbox":[42,30,560,24]}
+{"kind":"textbox","id":"sh/r2p8nqxs","slide":4,"text":"Die wichtigste methodische Absicherung ist der chronologische Split","textPreview":"Die wichtigste methodische Absicherung ist der chronologische Split","textChars":67,"textLines":1,"bbox":[42,58,960,92]}
+{"kind":"shape","id":"sh/2hwfyxob","slide":4,"bbox":[42,150,1196,1.2]}
+{"kind":"textbox","id":"sh/9gr2p8nq","slide":4,"text":"Zeitreihen dürfen nicht zufällig gemischt werden. Sonst lernt das Modell indirekt Informationen aus der Zukunft.","textPreview":"Zeitreihen dürfen nicht zufällig gemischt werden. Sonst lernt das Modell indirekt Informationen aus der Zukunft.","textChars":112,"textLines":1,"bbox":[42,200,560,84]}
+{"kind":"textbox","id":"sh/gvy90je9","slide":4,"text":"Deshalb wird zuerst zeitlich getrennt und erst danach der Scaler nur auf Trainingsdaten gefittet.","textPreview":"Deshalb wird zuerst zeitlich getrennt und erst danach der Scaler nur auf Trainingsdaten gefittet.","textChars":97,"textLines":1,"bbox":[42,305,560,76]}
+{"kind":"shape","id":"sh/ra5gbq1o","slide":4,"bbox":[660,200,548,255]}
+{"kind":"shape","id":"sh/2p8nqxs7","slide":4,"bbox":[705,292,285,48]}
+{"kind":"shape","id":"sh/9knih4by","slide":4,"bbox":[990,292,32,48]}
+{"kind":"shape","id":"sh/kzupwb2h","slide":4,"bbox":[1022,292,79,48]}
+{"kind":"textbox","id":"sh/ulwval87","slide":4,"text":"Train","textPreview":"Train","textChars":5,"textLines":1,"bbox":[710,246,180,30]}
+{"kind":"textbox","id":"sh/j6tovaho","slide":4,"text":"173 Sequenzen","textPreview":"173 Sequenzen","textChars":13,"textLines":1,"bbox":[710,350,180,34]}
+{"kind":"textbox","id":"sh/crmhk3q5","slide":4,"text":"Val","textPreview":"Val","textChars":3,"textLines":1,"bbox":[990,246,60,30]}
+{"kind":"textbox","id":"sh/1cfa9w3m","slide":4,"text":"19","textPreview":"19","textChars":2,"textLines":1,"bbox":[990,350,60,34]}
+{"kind":"textbox","id":"sh/uxc3ylc7","slide":4,"text":"Test","textPreview":"Test","textChars":4,"textLines":1,"bbox":[1022,246,90,30]}
+{"kind":"textbox","id":"sh/ji5snelo","slide":4,"text":"48","textPreview":"48","textChars":2,"textLines":1,"bbox":[1022,350,90,34]}
+{"kind":"textbox","id":"sh/c3ylc7u5","slide":4,"text":"24h-Fenster","textPreview":"24h-Fenster","textChars":11,"textLines":1,"bbox":[715,405,260,28]}
+{"kind":"textbox","id":"sh/1kre1w7m","slide":4,"text":"Jede Vorhersage nutzt die vergangenen 24 Stunden.","textPreview":"Jede Vorhersage nutzt die vergangenen 24 Stunden.","textChars":49,"textLines":1,"bbox":[715,433,420,34]}
+{"kind":"shape","id":"sh/q5o7qpg3","slide":4,"bbox":[42,480,1196,100]}
+{"kind":"textbox","id":"sh/jqh0fepk","slide":4,"text":"Ergebnis","textPreview":"Ergebnis","textChars":8,"textLines":1,"bbox":[74,510,150,30]}
+{"kind":"textbox","id":"sh/bulwval8","slide":4,"text":"Die Testmetriken bewerten echte Zukunftsdaten relativ zum Training. Das macht die Ergebnisse methodisch belastbarer.","textPreview":"Die Testmetriken bewerten echte Zukunftsdaten relativ zum Training. Das macht die Ergebnisse methodisch belastbarer.","textChars":116,"textLines":1,"bbox":[235,506,880,42]}
+{"kind":"textbox","id":"sh/i9s36hcr","slide":4,"text":"Probabilistische Energiedatenvorhersage","textPreview":"Probabilistische Energiedatenvorhersage","textChars":39,"textLines":1,"bbox":[42,672,460,24]}
+{"kind":"textbox","id":"sh/p0bi9s36","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1180,672,58,24]}
+{"kind":"notes","id":"nt/7pnmc1","slide":4,"text":""}
+{"kind":"slide","id":"sl/u5djal","slide":5,"title":"MODELLIDEE","textShapes":14}
+{"kind":"textbox","id":"sh/dg7adsji","slide":5,"text":"MODELLIDEE","textPreview":"MODELLIDEE","textChars":10,"textLines":1,"bbox":[42,30,560,24]}
+{"kind":"textbox","id":"sh/6tovahoz","slide":5,"text":"Quantile machen aus einem Punktwert eine kalibrierbare Prognose","textPreview":"Quantile machen aus einem Punktwert eine kalibrierbare Prognose","textChars":63,"textLines":1,"bbox":[42,58,960,92]}
+{"kind":"shape","id":"sh/vahoza1g","slide":5,"bbox":[42,150,1196,1.2]}
+{"kind":"shape","id":"sh/onyd0z61","slide":5,"bbox":[42,210,540,310]}
+{"kind":"textbox","id":"sh/d8v6psfi","slide":5,"text":"q0.9","textPreview":"q0.9","textChars":4,"textLines":1,"bbox":[92,250,90,34]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":5,"text":"obere Grenze","textPreview":"obere Grenze","textChars":12,"textLines":1,"bbox":[190,250,240,34]}
+{"kind":"textbox","id":"sh/z25kb6xk","slide":5,"text":"q0.5","textPreview":"q0.5","textChars":4,"textLines":1,"bbox":[92,343,90,34]}
+{"kind":"textbox","id":"sh/oj2t83it","slide":5,"text":"Median-Prognose","textPreview":"Median-Prognose","textChars":15,"textLines":1,"bbox":[190,343,280,34]}
+{"kind":"textbox","id":"sh/d4vmtwra","slide":5,"text":"q0.1","textPreview":"q0.1","textChars":4,"textLines":1,"bbox":[92,436,90,34]}
+{"kind":"textbox","id":"sh/h4byhgn2","slide":5,"text":"untere Grenze","textPreview":"untere Grenze","textChars":13,"textLines":1,"bbox":[190,436,240,34]}
+{"kind":"shape","id":"sh/sji5snel","slide":5,"bbox":[425,266,90,4]}
+{"kind":"shape","id":"sh/3ylc7u54","slide":5,"bbox":[425,360,90,4]}
+{"kind":"shape","id":"sh/adsji5sn","slide":5,"bbox":[425,453,90,4]}
+{"kind":"shape","id":"sh/lszqtcj6","slide":5,"bbox":[650,238,11,11]}
+{"kind":"textbox","id":"sh/s72x4nap","slide":5,"text":"Pinball Loss bewertet jedes Quantil passend zu seinem Niveau.","textPreview":"Pinball Loss bewertet jedes Quantil passend zu seinem Niveau.","textChars":61,"textLines":1,"bbox":[674,230,496,82]}
+{"kind":"shape","id":"sh/3m94fu18","slide":5,"bbox":[650,322,11,11]}
+{"kind":"textbox","id":"sh/a5gbq1or","slide":5,"text":"q0.1 bis q0.9 bilden ein nominelles 80%-Intervall.","textPreview":"q0.1 bis q0.9 bilden ein nominelles 80%-Intervall.","textChars":50,"textLines":1,"bbox":[674,314,496,82]}
+{"kind":"shape","id":"sh/hoza1gvy","slide":5,"bbox":[650,406,11,11]}
+{"kind":"textbox","id":"sh/s36hcrmh","slide":5,"text":"Crossing-Penalty und Sortierung sichern q0.1 <= q0.5 <= q0.9.","textPreview":"Crossing-Penalty und Sortierung sichern q0.1 <= q0.5 <= q0.9.","textChars":61,"textLines":1,"bbox":[674,398,496,82]}
+{"kind":"textbox","id":"sh/4zidonyd","slide":5,"text":"Das Modell wird also nicht nur an Nähe zum echten Wert gemessen, sondern daran, ob seine Unsicherheit statistisch sinnvoll ist.","textPreview":"Das Modell wird also nicht nur an Nähe zum echten Wert gemessen, sondern daran, ob seine Unsicherheit statistisch sinnvoll ist.","textChars":127,"textLines":1,"bbox":[650,500,520,70]}
+{"kind":"textbox","id":"sh/xkf6dcbu","slide":5,"text":"Probabilistische Energiedatenvorhersage","textPreview":"Probabilistische Energiedatenvorhersage","textChars":39,"textLines":1,"bbox":[42,672,460,24]}
+{"kind":"textbox","id":"sh/mtwra5gb","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1180,672,58,24]}
+{"kind":"notes","id":"nt/u5djal","slide":5,"text":""}
+{"kind":"slide","id":"sl/0alron","slide":6,"title":"DATENBASIS","textShapes":16}
+{"kind":"textbox","id":"sh/q5o7qpg3","slide":6,"text":"DATENBASIS","textPreview":"DATENBASIS","textChars":10,"textLines":1,"bbox":[42,30,560,24]}
+{"kind":"textbox","id":"sh/1w7mp0bi","slide":6,"text":"Die Daten zeigen starke Tagesmuster und fehlende Wetterinformation","textPreview":"Die Daten zeigen starke Tagesmuster und fehlende Wetterinformation","textChars":66,"textLines":1,"bbox":[42,58,960,92]}
+{"kind":"shape","id":"sh/8bat47y1","slide":6,"bbox":[42,150,1196,1.2]}
+{"kind":"shape","id":"sh/j2t83itg","slide":6,"bbox":[42,190,570,385]}
+{"kind":"shape","id":"sh/18jqh0fe","slide":6,"bbox":[665,200,250,150]}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":6,"text":"264","textPreview":"264","textChars":3,"textLines":1,"bbox":[689,222,202,62]}
+{"kind":"textbox","id":"sh/j6tovaho","slide":6,"text":"Stundenwerte","textPreview":"Stundenwerte","textChars":12,"textLines":1,"bbox":[689,295,202,30]}
+{"kind":"textbox","id":"sh/ulwval87","slide":6,"text":"April-Ausschnitt 2026","textPreview":"April-Ausschnitt 2026","textChars":21,"textLines":1,"bbox":[689,332,202,2]}
+{"kind":"shape","id":"sh/4vmtwra5","slide":6,"bbox":[955,200,250,150]}
+{"kind":"textbox","id":"sh/tgfmlkjm","slide":6,"text":"8","textPreview":"8","textChars":1,"textLines":1,"bbox":[979,222,202,62]}
+{"kind":"textbox","id":"sh/mp0bi9s3","slide":6,"text":"Features","textPreview":"Features","textChars":8,"textLines":1,"bbox":[979,295,202,30]}
+{"kind":"textbox","id":"sh/bat47y1k","slide":6,"text":"PV, Zeit, Wind, Erdgas","textPreview":"PV, Zeit, Wind, Erdgas","textChars":22,"textLines":1,"bbox":[979,332,202,2]}
+{"kind":"shape","id":"sh/47y1kre1","slide":6,"bbox":[665,392,250,150]}
+{"kind":"textbox","id":"sh/tsvu9kni","slide":6,"text":"24h","textPreview":"24h","textChars":3,"textLines":1,"bbox":[689,414,202,62]}
+{"kind":"textbox","id":"sh/m1cfa9w3","slide":6,"text":"Fenster","textPreview":"Fenster","textChars":7,"textLines":1,"bbox":[689,487,202,30]}
+{"kind":"textbox","id":"sh/bm58z25k","slide":6,"text":"Vergangener Tag als Sequenz","textPreview":"Vergangener Tag als Sequenz","textChars":27,"textLines":1,"bbox":[689,524,202,2]}
+{"kind":"shape","id":"sh/4byhgn29","slide":6,"bbox":[955,392,250,150]}
+{"kind":"textbox","id":"sh/twra5gbq","slide":6,"text":"0","textPreview":"0","textChars":1,"textLines":1,"bbox":[979,414,202,62]}
+{"kind":"textbox","id":"sh/1gvy90je","slide":6,"text":"Wetterfeatures","textPreview":"Wetterfeatures","textChars":14,"textLines":1,"bbox":[979,487,202,30]}
+{"kind":"textbox","id":"sh/8z25kb6x","slide":6,"text":"Größter fachlicher Ausbaupunkt","textPreview":"Größter fachlicher Ausbaupunkt","textChars":30,"textLines":1,"bbox":[979,524,202,2]}
+{"kind":"textbox","id":"sh/je9cvixc","slide":6,"text":"Probabilistische Energiedatenvorhersage","textPreview":"Probabilistische Energiedatenvorhersage","textChars":39,"textLines":1,"bbox":[42,672,460,24]}
+{"kind":"textbox","id":"sh/qtcj6tov","slide":6,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1180,672,58,24]}
+{"kind":"image","id":"im/fepkzupw","slide":6,"name":"","alt":"Durchschnittliches Tagesprofil der Photovoltaik- und Wind-Onshore-Erzeugung","bbox":[52,200,550,365]}
+{"kind":"notes","id":"nt/0alron","slide":6,"text":""}
+{"kind":"slide","id":"sl/5iplpn","slide":7,"title":"EVALUATION","textShapes":17}
+{"kind":"textbox","id":"sh/il0rqd4v","slide":7,"text":"EVALUATION","textPreview":"EVALUATION","textChars":10,"textLines":1,"bbox":[42,30,560,24]}
+{"kind":"textbox","id":"sh/tcj6tova","slide":7,"text":"Die Bewertung prüft Fehler, Kalibrierung und Konsistenz gleichzeitig","textPreview":"Die Bewertung prüft Fehler, Kalibrierung und Konsistenz gleichzeitig","textChars":68,"textLines":1,"bbox":[42,58,960,92]}
+{"kind":"shape","id":"sh/0rqd4vmt","slide":7,"bbox":[42,150,1196,1.2]}
+{"kind":"shape","id":"sh/byhgn29g","slide":7,"bbox":[42,198,1196,52]}
+{"kind":"textbox","id":"sh/idonyd0z","slide":7,"text":"PICP","textPreview":"PICP","textChars":4,"textLines":1,"bbox":[70,211,210,28]}
+{"kind":"textbox","id":"sh/t47y1kre","slide":7,"text":"Wie viele echte Werte liegen im 80%-Intervall? Ziel: nahe 80%.","textPreview":"Wie viele echte Werte liegen im 80%-Intervall? Ziel: nahe 80%.","textChars":62,"textLines":1,"bbox":[320,210,840,30]}
+{"kind":"shape","id":"sh/0je9cvix","slide":7,"bbox":[42,265,1196,52]}
+{"kind":"textbox","id":"sh/bulwval8","slide":7,"text":"Intervallbreite","textPreview":"Intervallbreite","textChars":15,"textLines":1,"bbox":[70,278,210,28]}
+{"kind":"textbox","id":"sh/i9s36hcr","slide":7,"text":"Wie breit ist der Unsicherheitsbereich im Durchschnitt?","textPreview":"Wie breit ist der Unsicherheitsbereich im Durchschnitt?","textChars":55,"textLines":1,"bbox":[320,277,840,30]}
+{"kind":"shape","id":"sh/0fepkzup","slide":7,"bbox":[42,332,1196,52]}
+{"kind":"textbox","id":"sh/p0bi9s36","slide":7,"text":"Median-RMSE","textPreview":"Median-RMSE","textChars":11,"textLines":1,"bbox":[70,345,210,28]}
+{"kind":"textbox","id":"sh/i9s36hcr","slide":7,"text":"Wie nah liegt die zentrale q0.5-Prognose an der Realität?","textPreview":"Wie nah liegt die zentrale q0.5-Prognose an der Realität?","textChars":57,"textLines":1,"bbox":[320,344,840,30]}
+{"kind":"shape","id":"sh/bulwval8","slide":7,"bbox":[42,399,1196,52]}
+{"kind":"textbox","id":"sh/032lszqt","slide":7,"text":"Winkler Score","textPreview":"Winkler Score","textChars":13,"textLines":1,"bbox":[70,412,210,28]}
+{"kind":"textbox","id":"sh/tovahoza","slide":7,"text":"Wie gut ist die Balance aus Breite und Fehldeckung?","textPreview":"Wie gut ist die Balance aus Breite und Fehldeckung?","textChars":51,"textLines":1,"bbox":[320,411,840,30]}
+{"kind":"shape","id":"sh/ixczed8v","slide":7,"bbox":[42,466,1196,52]}
+{"kind":"textbox","id":"sh/bi9s36hc","slide":7,"text":"Pinball Loss","textPreview":"Pinball Loss","textChars":12,"textLines":1,"bbox":[70,479,210,28]}
+{"kind":"textbox","id":"sh/0rqd4vmt","slide":7,"text":"Sind die einzelnen Quantile an ihrem Niveau gut getroffen?","textPreview":"Sind die einzelnen Quantile an ihrem Niveau gut getroffen?","textChars":58,"textLines":1,"bbox":[320,478,840,30]}
+{"kind":"shape","id":"sh/tcj6tova","slide":7,"bbox":[42,533,1196,52]}
+{"kind":"textbox","id":"sh/x0nuxc3y","slide":7,"text":"Crossing Rate","textPreview":"Crossing Rate","textChars":13,"textLines":1,"bbox":[70,546,210,28]}
+{"kind":"textbox","id":"sh/4fu18jqh","slide":7,"text":"Bleibt die Ordnung q0.1 <= q0.5 <= q0.9 erhalten?","textPreview":"Bleibt die Ordnung q0.1 <= q0.5 <= q0.9 erhalten?","textChars":49,"textLines":1,"bbox":[320,545,840,30]}
+{"kind":"textbox","id":"sh/fu18jqh0","slide":7,"text":"Eine gute probabilistische Prognose ist nicht automatisch die mit dem schmalsten Intervall. Entscheidend ist, ob Präzision und Abdeckung zusammenpassen.","textPreview":"Eine gute probabilistische Prognose ist nicht automatisch die mit dem schmalsten Intervall. Entscheidend ist, ob Präzision und Abdeckung ...","textChars":152,"textLines":1,"bbox":[78,622,1070,42]}
+{"kind":"textbox","id":"sh/m94fu18j","slide":7,"text":"Probabilistische Energiedatenvorhersage","textPreview":"Probabilistische Energiedatenvorhersage","textChars":39,"textLines":1,"bbox":[42,672,460,24]}
+{"kind":"textbox","id":"sh/xobm58z2","slide":7,"text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[1180,672,58,24]}
+{"kind":"notes","id":"nt/5iplpn","slide":7,"text":""}
+{"kind":"slide","id":"sl/t5vuzm","slide":8,"title":"ERGEBNIS","textShapes":18}
+{"kind":"textbox","id":"sh/bm58z25k","slide":8,"text":"ERGEBNIS","textPreview":"ERGEBNIS","textChars":8,"textLines":1,"bbox":[42,30,560,24]}
+{"kind":"textbox","id":"sh/47y1kre1","slide":8,"text":"Das RNN liefert im aktuellen Lauf die überzeugendere Prognose","textPreview":"Das RNN liefert im aktuellen Lauf die überzeugendere Prognose","textChars":61,"textLines":1,"bbox":[42,58,960,92]}
+{"kind":"shape","id":"sh/tsvu9kni","slide":8,"bbox":[42,150,1196,1.2]}
+{"kind":"shape","id":"sh/mp0bi9s3","slide":8,"bbox":[42,185,770,410]}
+{"kind":"shape","id":"sh/4vmtwra5","slide":8,"bbox":[850,190,175,125]}
+{"kind":"textbox","id":"sh/tgfmlkjm","slide":8,"text":"89,6%","textPreview":"89,6%","textChars":5,"textLines":1,"bbox":[874,212,127,62]}
+{"kind":"textbox","id":"sh/mhk3q5o7","slide":8,"text":"PICP","textPreview":"PICP","textChars":4,"textLines":1,"bbox":[874,285,127,30]}
+{"kind":"textbox","id":"sh/b2hwfyxo","slide":8,"text":"nahe, aber konservativ","textPreview":"nahe, aber konservativ","textChars":22,"textLines":1,"bbox":[874,322,127,-23]}
+{"kind":"shape","id":"sh/f6dcbulw","slide":8,"bbox":[1050,190,175,125]}
+{"kind":"textbox","id":"sh/mlkjm1cf","slide":8,"text":"0,0%","textPreview":"0,0%","textChars":4,"textLines":1,"bbox":[1074,212,127,62]}
+{"kind":"textbox","id":"sh/xc3ylc7u","slide":8,"text":"Crossing","textPreview":"Crossing","textChars":8,"textLines":1,"bbox":[1074,285,127,30]}
+{"kind":"textbox","id":"sh/4r65wjud","slide":8,"text":"Quantilordnung stabil","textPreview":"Quantilordnung stabil","textChars":21,"textLines":1,"bbox":[1074,322,127,-23]}
+{"kind":"shape","id":"sh/fepkzupw","slide":8,"bbox":[850,345,175,125]}
+{"kind":"textbox","id":"sh/mtwra5gb","slide":8,"text":"1.804","textPreview":"1.804","textChars":5,"textLines":1,"bbox":[874,367,127,62]}
+{"kind":"textbox","id":"sh/xkf6dcbu","slide":8,"text":"RMSE","textPreview":"RMSE","textChars":4,"textLines":1,"bbox":[874,440,127,30]}
+{"kind":"textbox","id":"sh/4zidonyd","slide":8,"text":"MWh Median-Fehler","textPreview":"MWh Median-Fehler","textChars":17,"textLines":1,"bbox":[874,477,127,-23]}
+{"kind":"shape","id":"sh/fil0rqd4","slide":8,"bbox":[1050,345,175,125]}
+{"kind":"textbox","id":"sh/qxs72x4n","slide":8,"text":"6.149","textPreview":"6.149","textChars":5,"textLines":1,"bbox":[1074,367,127,62]}
+{"kind":"textbox","id":"sh/u9knih4b","slide":8,"text":"Winkler","textPreview":"Winkler","textChars":7,"textLines":1,"bbox":[1074,440,127,30]}
+{"kind":"textbox","id":"sh/judg7ads","slide":8,"text":"MWh Score","textPreview":"MWh Score","textChars":9,"textLines":1,"bbox":[1074,477,127,-23]}
+{"kind":"textbox","id":"sh/cfa9w3m9","slide":8,"text":"Interpretation","textPreview":"Interpretation","textChars":14,"textLines":1,"bbox":[850,515,200,30]}
+{"kind":"textbox","id":"sh/1032lszq","slide":8,"text":"Das RNN deckt die realen Werte gut ab und bleibt konsistent. Die Coverage liegt über 80%, daher ist das Intervall eher vorsichtig breit.","textPreview":"Das RNN deckt die realen Werte gut ab und bleibt konsistent. Die Coverage liegt über 80%, daher ist das Intervall eher vorsichtig breit.","textChars":136,"textLines":1,"bbox":[850,548,365,58]}
+{"kind":"textbox","id":"sh/u18jqh0f","slide":8,"text":"Probabilistische Energiedatenvorhersage","textPreview":"Probabilistische Energiedatenvorhersage","textChars":39,"textLines":1,"bbox":[42,672,460,24]}
+{"kind":"textbox","id":"sh/jm1cfa9w","slide":8,"text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1180,672,58,24]}
+{"kind":"image","id":"im/2t83itgf","slide":8,"name":"","alt":"RNN-Vorhersage mit 80%-Intervall","bbox":[52,195,750,390]}
+{"kind":"notes","id":"nt/t5vuzm","slide":8,"text":""}
+{"kind":"slide","id":"sl/k9162e","slide":9,"title":"GEGENBEISPIEL","textShapes":18}
+{"kind":"textbox","id":"sh/wval87ed","slide":9,"text":"GEGENBEISPIEL","textPreview":"GEGENBEISPIEL","textChars":13,"textLines":1,"bbox":[42,30,560,24]}
+{"kind":"textbox","id":"sh/7adsji5s","slide":9,"text":"Das LSTM wirkt optisch plausibel, ist aber statistisch zu eng","textPreview":"Das LSTM wirkt optisch plausibel, ist aber statistisch zu eng","textChars":61,"textLines":1,"bbox":[42,58,960,92]}
+{"kind":"shape","id":"sh/epkzupwb","slide":9,"bbox":[42,150,1196,1.2]}
+{"kind":"shape","id":"sh/psfil0rq","slide":9,"bbox":[42,185,770,410]}
+{"kind":"shape","id":"sh/7mp0bi9s","slide":9,"bbox":[850,190,175,125]}
+{"kind":"textbox","id":"sh/e1w7mp0b","slide":9,"text":"58,3%","textPreview":"58,3%","textChars":5,"textLines":1,"bbox":[874,212,127,62]}
+{"kind":"textbox","id":"sh/l0rqd4vm","slide":9,"text":"PICP","textPreview":"PICP","textChars":4,"textLines":1,"bbox":[874,285,127,30]}
+{"kind":"textbox","id":"sh/wfyxobm5","slide":9,"text":"deutlich unter 80%","textPreview":"deutlich unter 80%","textChars":18,"textLines":1,"bbox":[874,322,127,-23]}
+{"kind":"shape","id":"sh/ixczed8v","slide":9,"bbox":[1050,190,175,125]}
+{"kind":"textbox","id":"sh/bi9s36hc","slide":9,"text":"4,17%","textPreview":"4,17%","textChars":5,"textLines":1,"bbox":[1074,212,127,62]}
+{"kind":"textbox","id":"sh/032lszqt","slide":9,"text":"Raw crossing","textPreview":"Raw crossing","textChars":12,"textLines":1,"bbox":[1074,285,127,30]}
+{"kind":"textbox","id":"sh/tovahoza","slide":9,"text":"vor Sortierung","textPreview":"vor Sortierung","textChars":14,"textLines":1,"bbox":[1074,322,127,-23]}
+{"kind":"shape","id":"sh/i9s36hcr","slide":9,"bbox":[850,345,175,125]}
+{"kind":"textbox","id":"sh/bulwval8","slide":9,"text":"4.906","textPreview":"4.906","textChars":5,"textLines":1,"bbox":[874,367,127,62]}
+{"kind":"textbox","id":"sh/0fepkzup","slide":9,"text":"RMSE","textPreview":"RMSE","textChars":4,"textLines":1,"bbox":[874,440,127,30]}
+{"kind":"textbox","id":"sh/p0bi9s36","slide":9,"text":"MWh Median-Fehler","textPreview":"MWh Median-Fehler","textChars":17,"textLines":1,"bbox":[874,477,127,-23]}
+{"kind":"shape","id":"sh/idonyd0z","slide":9,"bbox":[1050,345,175,125]}
+{"kind":"textbox","id":"sh/byhgn29g","slide":9,"text":"18.838","textPreview":"18.838","textChars":6,"textLines":1,"bbox":[1074,367,127,62]}
+{"kind":"textbox","id":"sh/3q5o7qpg","slide":9,"text":"Winkler","textPreview":"Winkler","textChars":7,"textLines":1,"bbox":[1074,440,127,30]}
+{"kind":"textbox","id":"sh/e9cvixcz","slide":9,"text":"MWh Score","textPreview":"MWh Score","textChars":9,"textLines":1,"bbox":[1074,477,127,-23]}
+{"kind":"textbox","id":"sh/lwval87e","slide":9,"text":"Interpretation","textPreview":"Interpretation","textChars":14,"textLines":1,"bbox":[850,515,200,30]}
+{"kind":"textbox","id":"sh/wb2hwfyx","slide":9,"text":"Die Form folgt dem PV-Tagesgang, aber das Intervall verfehlt zu viele echte Werte. Das ist kein Absturz, sondern ein Kalibrierungsbefund.","textPreview":"Die Form folgt dem PV-Tagesgang, aber das Intervall verfehlt zu viele echte Werte. Das ist kein Absturz, sondern ein Kalibrierungsbefund.","textChars":137,"textLines":1,"bbox":[850,548,365,70]}
+{"kind":"textbox","id":"sh/3itgfmlk","slide":9,"text":"Probabilistische Energiedatenvorhersage","textPreview":"Probabilistische Energiedatenvorhersage","textChars":39,"textLines":1,"bbox":[42,672,460,24]}
+{"kind":"textbox","id":"sh/ex0nuxc3","slide":9,"text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[1180,672,58,24]}
+{"kind":"image","id":"im/9gr2p8nq","slide":9,"name":"","alt":"LSTM-Vorhersage mit 80%-Intervall","bbox":[52,195,750,390]}
+{"kind":"notes","id":"nt/k9162e","slide":9,"text":""}
+{"kind":"slide","id":"sl/c16nr3","slide":10,"title":"MODELLVERGLEICH","textShapes":10}
+{"kind":"textbox","id":"sh/fmlkjm1c","slide":10,"text":"MODELLVERGLEICH","textPreview":"MODELLVERGLEICH","textChars":15,"textLines":1,"bbox":[42,30,560,24]}
+{"kind":"textbox","id":"sh/87ed8bat","slide":10,"text":"Der Modellvergleich spricht in diesem Lauf klar für das RNN","textPreview":"Der Modellvergleich spricht in diesem Lauf klar für das RNN","textChars":59,"textLines":1,"bbox":[42,58,960,92]}
+{"kind":"shape","id":"sh/xs72x4na","slide":10,"bbox":[42,150,1196,1.2]}
+{"kind":"shape","id":"sh/je9cvixc","slide":10,"bbox":[820,205,360,315]}
+{"kind":"textbox","id":"sh/8z25kb6x","slide":10,"text":"Warum RNN gewinnt","textPreview":"Warum RNN gewinnt","textChars":17,"textLines":1,"bbox":[850,238,300,32]}
+{"kind":"shape","id":"sh/1gvy90je","slide":10,"bbox":[850,302,11,11]}
+{"kind":"textbox","id":"sh/qpg3ex0n","slide":10,"text":"deutlich niedrigerer Median-RMSE","textPreview":"deutlich niedrigerer Median-RMSE","textChars":32,"textLines":1,"bbox":[874,294,261,46]}
+{"kind":"shape","id":"sh/fa9w3m94","slide":10,"bbox":[850,350,11,11]}
+{"kind":"textbox","id":"sh/je9cvixc","slide":10,"text":"deutlich niedrigerer Winkler Score","textPreview":"deutlich niedrigerer Winkler Score","textChars":34,"textLines":1,"bbox":[874,342,261,46]}
+{"kind":"shape","id":"sh/qtcj6tov","slide":10,"bbox":[850,398,11,11]}
+{"kind":"textbox","id":"sh/1gvy90je","slide":10,"text":"PICP näher am 80%-Ziel als LSTM","textPreview":"PICP näher am 80%-Ziel als LSTM","textChars":31,"textLines":1,"bbox":[874,390,261,46]}
+{"kind":"shape","id":"sh/8z25kb6x","slide":10,"bbox":[850,446,11,11]}
+{"kind":"textbox","id":"sh/fmlkjm1c","slide":10,"text":"keine Quantilkreuzungen im Output","textPreview":"keine Quantilkreuzungen im Output","textChars":33,"textLines":1,"bbox":[874,438,261,46]}
+{"kind":"textbox","id":"sh/q1orytsv","slide":10,"text":"Wichtig: Das ist ein Ergebnis dieses konkreten Laufs. Bei größerer Datenbasis und Wetterfeatures muss der Vergleich erneut geprüft werden.","textPreview":"Wichtig: Das ist ein Ergebnis dieses konkreten Laufs. Bei größerer Datenbasis und Wetterfeatures muss der Vergleich erneut geprüft werden.","textChars":138,"textLines":1,"bbox":[58,605,1080,42]}
+{"kind":"textbox","id":"sh/xs72x4na","slide":10,"text":"Probabilistische Energiedatenvorhersage","textPreview":"Probabilistische Energiedatenvorhersage","textChars":39,"textLines":1,"bbox":[42,672,460,24]}
+{"kind":"textbox","id":"sh/87ed8bat","slide":10,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[1180,672,58,24]}
+{"kind":"chart","id":"ch/y90je9cv","slide":10,"name":"","chartType":"bar","bbox":[58,195,700,360]}
+{"kind":"notes","id":"nt/c16nr3","slide":10,"text":""}
+{"kind":"slide","id":"sl/eeuvzp","slide":11,"title":"INTERPRETIERBARKEIT","textShapes":10}
+{"kind":"textbox","id":"sh/jqh0fepk","slide":11,"text":"INTERPRETIERBARKEIT","textPreview":"INTERPRETIERBARKEIT","textChars":19,"textLines":1,"bbox":[42,30,560,24]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":11,"text":"Die Feature Importance zeigt, was das Modell tatsächlich nutzt","textPreview":"Die Feature Importance zeigt, was das Modell tatsächlich nutzt","textChars":62,"textLines":1,"bbox":[42,58,960,92]}
+{"kind":"shape","id":"sh/1w7mp0bi","slide":11,"bbox":[42,150,1196,1.2]}
+{"kind":"shape","id":"sh/qh0fepkz","slide":11,"bbox":[42,190,690,360]}
+{"kind":"shape","id":"sh/8nqxs72x","slide":11,"bbox":[780,213,11,11]}
+{"kind":"textbox","id":"sh/18jqh0fe","slide":11,"text":"Die eigene PV-Historie ist im Lauf der stärkste Treiber.","textPreview":"Die eigene PV-Historie ist im Lauf der stärkste Treiber.","textChars":56,"textLines":1,"bbox":[804,205,386,70]}
+{"kind":"shape","id":"sh/ulwval87","slide":11,"bbox":[780,285,11,11]}
+{"kind":"textbox","id":"sh/j6tovaho","slide":11,"text":"Zeitliche Muster bleiben wichtig, besonders der Tageszyklus.","textPreview":"Zeitliche Muster bleiben wichtig, besonders der Tageszyklus.","textChars":60,"textLines":1,"bbox":[804,277,386,70]}
+{"kind":"shape","id":"sh/j2t83itg","slide":11,"bbox":[780,357,11,11]}
+{"kind":"textbox","id":"sh/qh0fepkz","slide":11,"text":"Wind und Erdgas liefern Zusatzsignal, aber nicht den Hauptteil.","textPreview":"Wind und Erdgas liefern Zusatzsignal, aber nicht den Hauptteil.","textChars":63,"textLines":1,"bbox":[804,349,386,70]}
+{"kind":"shape","id":"sh/18jqh0fe","slide":11,"bbox":[780,429,11,11]}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":11,"text":"Keine Wetterfeatures heißt: Das Modell sieht keine echte Wetterlage.","textPreview":"Keine Wetterfeatures heißt: Das Modell sieht keine echte Wetterlage.","textChars":68,"textLines":1,"bbox":[804,421,386,70]}
+{"kind":"shape","id":"sh/jqh0fepk","slide":11,"bbox":[780,540,410,75]}
+{"kind":"textbox","id":"sh/q5o7qpg3","slide":11,"text":"Nächster Qualitätssprung","textPreview":"Nächster Qualitätssprung","textChars":24,"textLines":1,"bbox":[805,555,280,24]}
+{"kind":"textbox","id":"sh/1w7mp0bi","slide":11,"text":"Globalstrahlung, Bewölkung, Temperatur und echte Wettervorhersagen einbinden.","textPreview":"Globalstrahlung, Bewölkung, Temperatur und echte Wettervorhersagen einbinden.","textChars":77,"textLines":1,"bbox":[805,584,345,26]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":11,"text":"Probabilistische Energiedatenvorhersage","textPreview":"Probabilistische Energiedatenvorhersage","textChars":39,"textLines":1,"bbox":[42,672,460,24]}
+{"kind":"textbox","id":"sh/ji5snelo","slide":11,"text":"11","textPreview":"11","textChars":2,"textLines":1,"bbox":[1180,672,58,24]}
+{"kind":"image","id":"im/ytsvu9kn","slide":11,"name":"","alt":"Permutation Feature Importance des RNN","bbox":[52,200,670,340]}
+{"kind":"notes","id":"nt/eeuvzp","slide":11,"text":""}
+{"kind":"slide","id":"sl/gt2ugl","slide":12,"title":"FAZIT","textShapes":15}
+{"kind":"textbox","id":"sh/dg7adsji","slide":12,"text":"FAZIT","textPreview":"FAZIT","textChars":5,"textLines":1,"bbox":[42,30,560,24]}
+{"kind":"textbox","id":"sh/6tovahoz","slide":12,"text":"Das Projekt ist ein belastbarer Prototyp mit einem klaren nächsten Ausbauschritt","textPreview":"Das Projekt ist ein belastbarer Prototyp mit einem klaren nächsten Ausbauschritt","textChars":80,"textLines":1,"bbox":[42,58,960,92]}
+{"kind":"shape","id":"sh/vahoza1g","slide":12,"bbox":[42,150,1196,1.2]}
+{"kind":"shape","id":"sh/onyd0z61","slide":12,"bbox":[42,210,350,250]}
+{"kind":"textbox","id":"sh/d8v6psfi","slide":12,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[66,232,302,62]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":12,"text":"Was gezeigt wurde","textPreview":"Was gezeigt wurde","textChars":17,"textLines":1,"bbox":[66,305,302,30]}
+{"kind":"textbox","id":"sh/z25kb6xk","slide":12,"text":"Eine lokale End-to-End-Pipeline von SMARD-CSV über Training bis Ergebnis-Dashboard.","textPreview":"Eine lokale End-to-End-Pipeline von SMARD-CSV über Training bis Ergebnis-Dashboard.","textChars":83,"textLines":1,"bbox":[66,342,302,102]}
+{"kind":"shape","id":"sh/oj2t83it","slide":12,"bbox":[465,210,350,250]}
+{"kind":"textbox","id":"sh/d4vmtwra","slide":12,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[489,232,302,62]}
+{"kind":"textbox","id":"sh/h4byhgn2","slide":12,"text":"Was methodisch trägt","textPreview":"Was methodisch trägt","textChars":20,"textLines":1,"bbox":[489,305,302,30]}
+{"kind":"textbox","id":"sh/sji5snel","slide":12,"text":"Chronologischer Split, Scaler nur auf Training, Quantilmetriken und Crossing-Kontrolle.","textPreview":"Chronologischer Split, Scaler nur auf Training, Quantilmetriken und Crossing-Kontrolle.","textChars":87,"textLines":1,"bbox":[489,342,302,102]}
+{"kind":"shape","id":"sh/3ylc7u54","slide":12,"bbox":[888,210,350,250]}
+{"kind":"textbox","id":"sh/adsji5sn","slide":12,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[912,232,302,62]}
+{"kind":"textbox","id":"sh/lszqtcj6","slide":12,"text":"Was noch fehlt","textPreview":"Was noch fehlt","textChars":14,"textLines":1,"bbox":[912,305,302,30]}
+{"kind":"textbox","id":"sh/s72x4nap","slide":12,"text":"Mehr Daten und echte Wettervorhersagen für robuste PV-Prognosen.","textPreview":"Mehr Daten und echte Wettervorhersagen für robuste PV-Prognosen.","textChars":64,"textLines":1,"bbox":[912,342,302,102]}
+{"kind":"shape","id":"sh/3m94fu18","slide":12,"bbox":[42,520,1196,92]}
+{"kind":"textbox","id":"sh/a5gbq1or","slide":12,"text":"Kernaussage","textPreview":"Kernaussage","textChars":11,"textLines":1,"bbox":[74,548,170,30]}
+{"kind":"textbox","id":"sh/hoza1gvy","slide":12,"text":"Die Präsentation sollte nicht behaupten, dass das Modell produktionsreif ist. Stark ist vielmehr, dass Unsicherheit sauber modelliert, bewertet und transparent erklärt wird.","textPreview":"Die Präsentation sollte nicht behaupten, dass das Modell produktionsreif ist. Stark ist vielmehr, dass Unsicherheit sauber modelliert, be...","textChars":173,"textLines":1,"bbox":[250,540,875,50]}
+{"kind":"textbox","id":"sh/s36hcrmh","slide":12,"text":"Probabilistische Energiedatenvorhersage","textPreview":"Probabilistische Energiedatenvorhersage","textChars":39,"textLines":1,"bbox":[42,672,460,24]}
+{"kind":"textbox","id":"sh/4zidonyd","slide":12,"text":"12","textPreview":"12","textChars":2,"textLines":1,"bbox":[1180,672,58,24]}
+{"kind":"notes","id":"nt/gt2ugl","slide":12,"text":""}

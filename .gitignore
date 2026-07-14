@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Lokale Umgebungen
+.venv/
+venv/
+.env
+.DS_Store
+.idea/
+
+# Pipeline-Zwischenstaende
+pipeline_protokoll.txt
+Realisierte_Erzeugung_Cleaned.csv
+cleaned_data.pkl
+
+# Generierte Modelle, Scaler und Reports
+*.pth
+*.pkl
+*.png
+*.pdf
+*.docx
+*.xlsx
+
+# Daten und Ergebnisse
+smard_daten/input/*.csv
+smard_daten/output/
+Test csv/**/*.csv
+Demo/**/*.pth
+Demo/**/*.pkl
+Demo/**/*.png
+
+# Platzhalter weiterhin erlauben
+!.gitkeep
