@@ -14,9 +14,22 @@ import streamlit as st
 from dashboard_utils import generate_dashboard_bundle, load_dashboard_bundle
 
 
-INPUT_DIR = "/app/data/input" if os.path.exists("/app") else "smard_daten/input"
-OUTPUT_DIR = "/app/data/output" if os.path.exists("/app") else "smard_daten/output"
-STREAMLIT_ERROR_LOG = "streamlit_error.log"
+import os
+
+# 1. Ermittelt das lokale Skript-Verzeichnis des Nutzers
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# 2. Universelle Docker-Erkennung (funktioniert auf JEDEM Betriebssystem)
+IS_DOCKER = os.path.exists("/.dockerenv") or os.path.exists("/run/secrets/kubernetes.io")
+
+if IS_DOCKER:
+    # DOCKER-MODUS: Nutzt die Pfade aus der docker-compose.yml
+    INPUT_DIR = "/app/data/input"
+    OUTPUT_DIR = "/app/data/output"
+else:
+    # LOKAL-MODUS: Nutzt "Probabilistische-Energiedatenvorhersage/smard_daten/input" bzw. "output"
+    INPUT_DIR = os.path.join(BASE_DIR, "smard_daten", "input")
+    OUTPUT_DIR = os.path.join(BASE_DIR, "smard_daten", "output")
 
 METRIC_LABELS = {
     "PICP_80_percent": "Intervallabdeckung",

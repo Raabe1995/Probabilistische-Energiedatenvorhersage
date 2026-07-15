@@ -10,7 +10,7 @@ services:
       MKL_NUM_THREADS: "1"
       PYTORCH_NUM_THREADS: "1"
     ports:
-      - "8501:8501"
+      - "8503:8501"
     volumes:
       - ./smard_daten/input:/app/data/input
       - ./smard_daten/output:/app/data/output

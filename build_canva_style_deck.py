@@ -14,8 +14,11 @@ from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.util import Inches, Pt
 
 
-ROOT = Path("/Users/valentinbaumer/Desktop/Probabilistische-Energiedatenvorhersage")
-OUT = ROOT / "outputs"
+SCRIPT_DIR = Path(__file__).resolve().parent
+
+ROOT = SCRIPT_DIR
+
+OUT = ROOT / "smard_daten" / "output"
 DATA = ROOT / "smard_daten" / "output"
 PPTX_PATH = OUT / "Test_ausgefuellt_canva_style.pptx"
 
