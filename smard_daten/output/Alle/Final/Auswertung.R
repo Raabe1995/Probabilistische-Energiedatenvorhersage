@@ -11,7 +11,7 @@
 #----------------------------
 
 # Indivdiduellen Arbeitspfad wählen
-setwd("C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final")
+setwd("C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026")
 
 # 1. Benötigte Bibliotheken laden
 library(ggplot2)
@@ -20,7 +20,7 @@ library(dplyr)
 library(scales)
 # 2. Daten einlesen
 
-file_path <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 09. bis 19.04.2026_15min/eda_energieerzeugung_daten_04_2026.csv"
+file_path <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/Daten 09. bis 19.04.2026_15min/eda_energieerzeugung_daten_04_2026.csv"
 
 # Semikolon (;) als Trennzeichen
 df <- read_delim(file_path, delim = ";", show_col_types = FALSE)
@@ -87,7 +87,7 @@ library(dplyr)
 library(scales)
 
 # 2. Daten einlesen mit absolutem Pfad
-file_path_profile <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 09. bis 19.04.2026_15min/eda_tagesprofil_daten_04_2026.csv"
+file_path_profile <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/Daten 09. bis 19.04.2026_15min/eda_tagesprofil_daten_04_2026.csv"
 
 # CSV einlesen (Die erste Spalte enthält die Stunden 0-23 und heißt meist 'hour' oder 'Timestamp')
 df_profile <- read_delim(file_path_profile, delim = ";", show_col_types = FALSE)
@@ -154,11 +154,11 @@ library(dplyr)
 library(tidyr)
 
 # 2. LSTM-Lernkurve DIREKT über den Pfad einlesen
-file_path_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 09. bis 19.04.2026_15min/lstm_lernkurve_daten_04_2026.csv"
+file_path_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/Daten 09. bis 19.04.2026_15min/lstm_lernkurve_daten_04_2026.csv"
 df_lstm <- read_delim(file_path_lstm, delim = ";", show_col_types = FALSE)
 
 # 3. RNN-Lernkurve DIREKT über den Pfad einlesen
-file_path_rnn <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 09. bis 19.04.2026_15min/rnn_lernkurve_daten_04_2026.csv"
+file_path_rnn <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/Daten 09. bis 19.04.2026_15min/rnn_lernkurve_daten_04_2026.csv"
 df_rnn <- read_delim(file_path_rnn, delim = ";", show_col_types = FALSE)
 
 # 4. Daten für den Vergleich vorbereiten
@@ -226,8 +226,8 @@ library(tidyr)
 library(scales)
 
 # 2. Pfade zu den Vorhersagedaten definieren
-file_path_pred_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 09. bis 19.04.2026_15min/lstm_vorhersage_daten_04_2026.csv"
-file_path_pred_rnn  <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 09. bis 19.04.2026_15min/rnn_vorhersage_daten_04_2026.csv"
+file_path_pred_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/Daten 09. bis 19.04.2026_15min/lstm_vorhersage_daten_04_2026.csv"
+file_path_pred_rnn  <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/Daten 09. bis 19.04.2026_15min/rnn_vorhersage_daten_04_2026.csv"
 
 # Sicherheits-Check
 if (!file.exists(file_path_pred_lstm) | !file.exists(file_path_pred_rnn)) {
@@ -312,11 +312,11 @@ library(dplyr)
 library(tidyr)
 
 # 2. LSTM-Lernkurve DIREKT über den Pfad einlesen
-file_path_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 09. bis 19.04.2026_60min/lstm_lernkurve_daten_04_2026.csv"
+file_path_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/Daten 09. bis 19.04.2026_60min/lstm_lernkurve_daten_04_2026.csv"
 df_lstm <- read_delim(file_path_lstm, delim = ";", show_col_types = FALSE)
 
 # 3. RNN-Lernkurve DIREKT über den Pfad einlesen
-file_path_rnn <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 09. bis 19.04.2026_60min/rnn_lernkurve_daten_04_2026.csv"
+file_path_rnn <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/Daten 09. bis 19.04.2026_60min/rnn_lernkurve_daten_04_2026.csv"
 df_rnn <- read_delim(file_path_rnn, delim = ";", show_col_types = FALSE)
 
 # 4. Daten für den Vergleich vorbereiten
@@ -384,8 +384,8 @@ library(tidyr)
 library(scales)
 
 # 2. Pfade zu den Vorhersagedaten definieren
-file_path_pred_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 09. bis 19.04.2026_60min/lstm_vorhersage_daten_04_2026.csv"
-file_path_pred_rnn  <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 09. bis 19.04.2026_60min/rnn_vorhersage_daten_04_2026.csv"
+file_path_pred_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/Daten 09. bis 19.04.2026_60min/lstm_vorhersage_daten_04_2026.csv"
+file_path_pred_rnn  <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/Daten 09. bis 19.04.2026_60min/rnn_vorhersage_daten_04_2026.csv"
 
 # 3. Daten einlesen
 df_pred_lstm <- read_delim(file_path_pred_lstm, delim = ";", show_col_types = FALSE)
@@ -437,7 +437,7 @@ final_plot <- ggplot(df_preds_all, aes(x = Index)) +
 print(final_plot)
 
 # 6. Plot speichern
-output_file_path <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/r_plot_vorhersage_vergleich_60min.png"
+output_file_path <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/r_plot_vorhersage_vergleich_60min.png"
 
 ggsave(
   filename = output_file_path, 
@@ -460,11 +460,11 @@ library(dplyr)
 library(tidyr)
 
 # 2. LSTM-Lernkurve DIREKT über den Pfad einlesen
-file_path_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 01.03. bis 19.04.2026_15min/lstm_lernkurve_daten_03_2026_04_2026.csv"
+file_path_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/Daten 01.03. bis 19.04.2026_15min/lstm_lernkurve_daten_03_2026_04_2026.csv"
 df_lstm <- read_delim(file_path_lstm, delim = ";", show_col_types = FALSE)
 
 # 3. RNN-Lernkurve DIREKT über den Pfad einlesen
-file_path_rnn <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 01.03. bis 19.04.2026_15min/rnn_lernkurve_daten_03_2026_04_2026.csv"
+file_path_rnn <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/Daten 01.03. bis 19.04.2026_15min/rnn_lernkurve_daten_03_2026_04_2026.csv"
 df_rnn <- read_delim(file_path_rnn, delim = ";", show_col_types = FALSE)
 
 # 4. Daten für den Vergleich vorbereiten
@@ -532,8 +532,8 @@ library(tidyr)
 library(scales)
 
 # 2. Pfade zu den Vorhersagedaten definieren
-file_path_pred_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 01.03. bis 19.04.2026_15min/lstm_vorhersage_daten_03_2026_04_2026.csv"
-file_path_pred_rnn  <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/Daten 01.03. bis 19.04.2026_15min/rnn_vorhersage_daten_03_2026_04_2026.csv"
+file_path_pred_lstm <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/Daten 01.03. bis 19.04.2026_15min/lstm_vorhersage_daten_03_2026_04_2026.csv"
+file_path_pred_rnn  <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/Daten 01.03. bis 19.04.2026_15min/rnn_vorhersage_daten_03_2026_04_2026.csv"
 
 # Sicherheits-Check vorab
 if (!file.exists(file_path_pred_lstm) | !file.exists(file_path_pred_rnn)) {
@@ -599,7 +599,7 @@ final_plot <- ggplot(df_preds_all, aes(x = Index)) +
 print(final_plot)
 
 # 6. Plot speichern
-output_file_path <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Final/r_plot_vorhersage_vergleich_15min_langzeit.png"
+output_file_path <- "C:/Users/jan-c/Desktop/Probabilistische-Energiedatenvorhersage/smard_daten/output/Alle/Läufe 20072026/r_plot_vorhersage_vergleich_15min_langzeit.png"
 
 ggsave(
   filename = output_file_path, 
