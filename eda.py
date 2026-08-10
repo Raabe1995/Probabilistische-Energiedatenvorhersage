@@ -18,20 +18,21 @@ parser.add_argument("input_csv", nargs="?", help="Pfad zur SMARD-CSV-Datei")
 parser.add_argument("--weather-csv", help="Optionale Wetter-CSV mit Zeitstempel und numerischen Wetterfeatures")
 args = parser.parse_args()
 
+# Eigenschaften dieses Blocks:
+# Wenn ein Argument uebergeben wurde, wird es genutzt.
+# Ansonsten: Sucht automatisch nach jeder .csv-Datei im Input-Ordner
+# Enthält Fallback für lokale Entwicklung ohne Unterordner
+# Sortiert nach der neuesten Datei (die, die zuletzt hochgeladen/geändert wurde)
 try:
-    # Wenn ein Argument uebergeben wurde, wird es genutzt.
     if args.input_csv:
         input_filename = args.input_csv
     else:
-        # Ansonsten: Sucht automatisch nach jeder .csv-Datei im Input-Ordner
         csv_files = glob.glob(os.path.join(input_dir, '*.csv'))
 
         if not csv_files:
-            # Fallback für lokale Entwicklung ohne Unterordner
             csv_files = glob.glob('*.csv')
 
         if csv_files:
-            # Sortiert nach der neuesten Datei (die, die zuletzt hochgeladen/geändert wurde)
             input_filename = max(csv_files, key=os.path.getmtime)
         else:
             raise FileNotFoundError("Keine CSV-Datei im Verzeichnis gefunden!")
@@ -52,27 +53,29 @@ for col in cols_to_fix:
     df[col] = df[col].astype(str).str.replace('.', '', regex=False).str.replace(',', '.')
     df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0)
 
-# Definition der Spaltennamen (dynamisch suchen)
+# Eigenschaft dieses Blocks: Definition der Spaltennamen (dynamisch suchen)
 pv_col = [c for c in df.columns if 'Photovoltaik' in c][0]
 wind_col = [c for c in df.columns if 'Wind Onshore' in c][0]
 
+# Eigenschaften dieses Blocks:
 # Schneidet unvollständige Tage am Ende ab (wo alles 0 ist)
 # Sucht den letzten Zeitpunkt, an dem überhaupt noch Strom erzeugt wurde
+# Rundet auf das Ende dieses Tages auf, um die Zeitreihe sauber zu halten
 last_active_index = df[df[pv_col] > 0].index.max()
 if pd.notna(last_active_index):
-    # Rundet auf das Ende dieses Tages auf, um die Zeitreihe sauber zu halten
     last_valid_day = last_active_index.normalize() + pd.Timedelta(days=1)
     df = df.loc[:last_valid_day]
 
+# Eigenschaft dieses Blocks:
 # Dynamische Auflösungserkennung und Zeitraum-Ermittlung
 # Abstand zwischen den ersten beiden Zeilen in Minuten berechnen
-time_delta_min = (df.index[1] - df.index[0]).total_seconds() / 60
-
-# Wie viele Schritte hat ein Tag (24h)?
-steps_per_day = int((24 * 60) / time_delta_min)
+# Anzahl der Schritte für einen Tag (24h)
 # Entspricht immer genau 24 Stunden Historie!
+time_delta_min = (df.index[1] - df.index[0]).total_seconds() / 60
+steps_per_day = int((24 * 60) / time_delta_min)
 window_size = steps_per_day
 
+# Eigenschaft dieses Blocks:
 # Dynamischen Zeitraum für die Plot-Beschriftungen ermitteln (z.B. "04.2026")
 start_date_str = df.index.min().strftime('%m.%Y')
 end_date_str = df.index.max().strftime('%m.%Y')
@@ -81,7 +84,7 @@ safe_date_str = date_range_str.replace('.', '_').replace(' ', '').replace('-', '
 
 print(f"Erkannte Auflösung: Alle {time_delta_min} Minuten. Window Size für 24h: {window_size}")
 
-# Flexibles Schneiden / Bereinigen von leeren Zeilen am Ende
+# Flexibles Schneiden/Bereinigen von leeren Zeilen am Ende
 df = df.dropna()
 
 # Optionale Wetterdaten zeitlich auf die SMARD-Zeitreihe mergen.
@@ -104,11 +107,11 @@ df['weekday_cos'] = np.cos(2 * np.pi * df['weekday'] / 7)
 df['is_weekend'] = df['weekday'].isin([5, 6]).astype(int)
 
 # Aggregierte Profile visualisieren
+# Speichern statt anzeigen
 daily_profile = df.groupby(df.index.hour)[[pv_col, wind_col]].mean()
 daily_profile.plot(kind='line', title=f'Durchschnittliches Tagesprofil ({date_range_str})')
 plt.ylabel('MWh')
 plt.tight_layout()
-# Speichern statt anzeigen
 plt.savefig(f'eda_tagesprofil_{safe_date_str}.png')
 plt.close()
 daily_profile.to_csv(f'eda_tagesprofil_daten_{safe_date_str}.csv', sep=';')

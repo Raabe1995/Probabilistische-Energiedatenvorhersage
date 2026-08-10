@@ -23,11 +23,11 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 IS_DOCKER = os.path.exists("/.dockerenv") or os.path.exists("/run/secrets/kubernetes.io")
 
 if IS_DOCKER:
-    # DOCKER-MODUS: Nutzt die Pfade aus der docker-compose.yml
+    # Docker-Modus: Nutzt die Pfade aus der docker-compose.yml
     INPUT_DIR = "/app/data/input"
     OUTPUT_DIR = "/app/data/output"
 else:
-    # LOKAL-MODUS: Nutzt "Probabilistische-Energiedatenvorhersage/smard_daten/input" bzw. "output"
+    # Lokal-Modus: Nutzt "Probabilistische-Energiedatenvorhersage/smard_daten/input" bzw. "output"
     INPUT_DIR = os.path.join(BASE_DIR, "smard_daten", "input")
     OUTPUT_DIR = os.path.join(BASE_DIR, "smard_daten", "output")
 
