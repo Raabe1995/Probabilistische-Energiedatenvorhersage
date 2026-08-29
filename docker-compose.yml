@@ -4,6 +4,8 @@ services:
     environment:
       STREAMLIT_SERVER_FILE_WATCHER_TYPE: none
       STREAMLIT_SERVER_HEADLESS: "true"
+      STREAMLIT_BROWSER_SERVER_ADDRESS: localhost
+      STREAMLIT_BROWSER_SERVER_PORT: "8503"
       STREAMLIT_BROWSER_GATHER_USAGE_STATS: "false"
       MPLBACKEND: Agg
       OMP_NUM_THREADS: "1"
@@ -12,5 +14,5 @@ services:
     ports:
       - "8503:8501"
     volumes:
-      - ./smard_daten/input:/app/data/input
-      - ./smard_daten/output:/app/data/output
+      - ./data/input:/app/data/input
+      - ./data/output:/app/data/output

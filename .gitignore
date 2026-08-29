@@ -11,27 +11,30 @@ venv/
 .env
 .DS_Store
 .idea/
+*.Rhistory
+~$*
 
-# Pipeline-Zwischenstaende
-pipeline_protokoll.txt
-Realisierte_Erzeugung_Cleaned.csv
-cleaned_data.pkl
+# Pipeline-Zwischenstaende im Projektstamm
+/pipeline_protokoll.txt
+/Realisierte_Erzeugung_Cleaned.csv
+/cleaned_data.pkl
 
-# Generierte Modelle, Scaler und Reports
-*.pth
-*.pkl
-*.png
-*.pdf
-*.docx
-*.xlsx
+# Generierte Laufzeitartefakte im Projektstamm
+/*.pth
+/*.pkl
+/*.png
+/*_daten_*.csv
+/*_metriken_*.csv
+/*_modell_metadaten_*.json
 
 # Daten und Ergebnisse
-smard_daten/input/*.csv
-smard_daten/output/
-Test csv/**/*.csv
-Demo/**/*.pth
-Demo/**/*.pkl
-Demo/**/*.png
+/data/input/*.csv
+/data/output/**
+!/data/output/.gitkeep
+
+# Vorberechnetes Dashboard
+dashboard_summary.json
+dashboard_assets/
 
 # Platzhalter weiterhin erlauben
 !.gitkeep

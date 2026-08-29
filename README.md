@@ -1,174 +1,291 @@
-# Probabilistische Energiedatenvorhersage mit LSTM/RNN
+# Probabilistische Energiedatenvorhersage mit LSTM und RNN
 
-Dieses Projekt trainiert probabilistische Modelle zur Vorhersage der Photovoltaik-Einspeisung auf Basis von SMARD-Marktdaten. Statt nur eine Punktprognose zu erzeugen, sagen LSTM und RNN drei Quantile voraus (`q0.1`, `q0.5`, `q0.9`). Daraus entsteht ein 80%-Unsicherheitsintervall, das die Planungssicherheit der Prognose sichtbar macht.
+Dieses Projekt erstellt probabilistische Prognosen für die Photovoltaik-Einspeisung aus historischen SMARD-Erzeugungsdaten. Zwei rekurrente neuronale Netze - ein LSTM und ein klassisches RNN – prognostizieren die Quantile `q0.1`, `q0.5` und `q0.9`. Das Intervall zwischen `q0.1` und `q0.9` bildet damit ein nominelles 80-%-Prognoseintervall ab.
 
-## Projektstruktur
+Eine Streamlit-Anwendung führt durch den vollständigen Ablauf: Datenupload, explorative Analyse, Training beider Modelle, Evaluation und Ergebnisdarstellung. Die Pipeline kann alternativ vollständig über die Kommandozeile ausgeführt werden.
 
-- `main.py`: Streamlit-Oberfläche für Upload, Pipeline-Start und Ergebnis-Dashboard.
-- `eda.py`: CSV-Import, Bereinigung, optionale Wetterdatenintegration und EDA-Plots.
-- `training_utils.py`: Gemeinsame Trainings-, Split-, Skalierungs-, Evaluations- und Plotlogik.
-- `train_lstm.py`: LSTM-Architektur und Aufruf der gemeinsamen Trainingspipeline.
-- `train_rnn.py`: RNN-Architektur und Aufruf der gemeinsamen Trainingspipeline.
-- `smard_daten/input`: Eingabedaten für Docker-/Streamlit-Runs.
-- `smard_daten/output`: Generierte Modelle, Scaler, Plots, Metriken und Protokolle.
+> **Projektstatus:** Das Repository ist ein Forschungs- und Demonstrationsprojekt. Es ist nicht als operatives Prognosesystem oder als Grundlage für betriebliche Entscheidungen vorgesehen.
 
-## Was verbessert wurde
+## Funktionen
 
-- Die `MinMaxScaler` werden nur noch auf dem chronologischen Trainingssplit gefittet. Validierungs- und Testdaten fließen nicht mehr in die Skalierung ein.
-- LSTM und RNN nutzen dieselbe Trainings- und Evaluationslogik; nur die Modellarchitektur unterscheidet sich noch.
-- Reproduzierbarkeit wurde durch feste Seeds und gepinnte Dependency-Versionen verbessert.
-- Optional können Wetterfeatures per separater CSV eingebunden werden.
-- Die Evaluation enthält neben PICP jetzt auch mittlere Intervallbreite, Pinball Loss pro Quantil, Winkler Score, Kalibrierungsdaten/-plot und Quantile-Crossing-Rate.
-- Das Training bestraft Quantilkreuzungen zusätzlich im Loss; vor der Ausgabe werden Quantile außerdem monoton sortiert.
-- Nach erfolgreichem Lauf werden die Ergebnisse zusätzlich direkt in einem Streamlit-Dashboard aufbereitet.
-- Für das Dashboard wird nach der Pipeline ein kompaktes Bundle (`dashboard_summary.json` plus verkleinerte Vorschaubilder) erzeugt, damit die Ergebnisansicht nicht jedes Mal alle Originaldateien neu laden muss.
-- Eine echte `.gitignore` ignoriert neue generierte Modelle, Scaler, Plots und Rohdaten.
+- Verarbeitung von SMARD-CSV-Exporten mit deutschem Zahlen- und Datumsformat
+- optionale Einbindung numerischer Wettermerkmale
+- gemeinsame Trainings- und Evaluationslogik für LSTM und RNN
+- chronologische Aufteilung in Trainings-, Validierungs- und Testdaten
+- Quantilregression für `q0.1`, `q0.5` und `q0.9`
+- Kennzahlen für Punktprognose, Intervallqualität und Kalibrierung
+- reproduzierbare Läufe durch feste Seeds und gepinnte Abhängigkeiten
+- browserbasiertes Dashboard mit Grafiken, Tabellen und Pipeline-Protokoll
+- Ausführung lokal oder mit Docker Compose
 
-## Lokale Ausführung
+## Schnellstart mit Docker
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-```
+### Voraussetzungen
 
-Pipeline ohne Streamlit:
+- Docker Desktop oder eine Docker-Installation mit Docker Compose
+- ein freier lokaler Port `8503`
 
-```bash
-python eda.py "Test csv/Alle/Realisierte_Erzeugung_202604090000_202604200000_Viertelstunde.csv"
-python train_lstm.py
-python train_rnn.py
-```
-
-Mit optionaler Wetterdatei:
-
-```bash
-python eda.py "pfad/zur/smard.csv" --weather-csv "pfad/zur/weather.csv"
-python train_lstm.py
-python train_rnn.py
-```
-
-Streamlit lokal:
-
-```bash
-streamlit run main.py
-```
-
-Nach dem Upload der SMARD-CSV und dem Klick auf `Pipeline starten` wechselt die App nach einem erfolgreichen Lauf automatisch in die Ansicht `Ergebnisse`. Dort werden Metriken, Prognoseplots, Kalibrierung, Feature Importance, Output-Dateien und das Pipeline-Protokoll direkt im Browser angezeigt.
-
-Wenn im Output-Ordner schon Ergebnisse liegen, kannst du sie über `Vorhandene Ergebnisse anzeigen` laden.
-
-Tests:
-
-```bash
-python -m unittest discover -s tests
-```
-
-## Docker
-
-Mit Docker Compose starten:
+Repository herunterladen, in das Projektverzeichnis wechseln und die Anwendung starten:
 
 ```bash
 docker compose up --build
 ```
 
-Danach ist die App unter `http://localhost:8501` erreichbar.
+Anschließend im Browser öffnen:
 
-Die Compose-Konfiguration deaktiviert den Streamlit-Dateiwatcher. Das ist für dieses Projekt sinnvoll, weil während der Pipeline viele Output-Dateien entstehen und diese Änderungen sonst unnötige Streamlit-Neuladungen auslösen können.
+[http://localhost:8503](http://localhost:8503)
 
-Wenn Compose im Vordergrund läuft, stoppst du die App zuerst mit `Ctrl + C`.
-Danach kannst du Container und Compose-Netzwerk aufräumen:
+In der Anwendung:
+
+1. Unter `Pipeline` eine SMARD-CSV auswählen. Zum Ausprobieren liegt eine Datei unter `data/examples/` bereit.
+2. Optional eine Wetter-CSV auswählen.
+3. `Pipeline starten` anklicken.
+4. Nach dem Training die Auswertung unter `Ergebnisse` ansehen.
+
+Das Training von LSTM und RNN läuft nacheinander und kann auf einer CPU einige Zeit benötigen. Statusmeldungen erscheinen in der Oberfläche; das vollständige Protokoll wird unter `data/output/pipeline_protokoll.txt` gespeichert.
+
+Die Anwendung mit `Ctrl + C` beenden und anschließend Container sowie Compose-Netzwerk entfernen:
 
 ```bash
 docker compose down
 ```
 
-Wenn du Compose im Hintergrund startest, nutzt du direkt:
+Für einen Start im Hintergrund:
 
 ```bash
 docker compose up --build -d
-docker compose down
 ```
 
-Die lokalen Ordner `smard_daten/input` und `smard_daten/output` bleiben dabei erhalten.
+Die Verzeichnisse `data/input` und `data/output` sind in den Container eingebunden. Hochgeladene Daten und erzeugte Ergebnisse bleiben daher auch nach `docker compose down` lokal erhalten.
 
-Falls die Browserseite eine `Connection error`-Meldung zeigt, prüfe zuerst den Containerstatus und die letzten Logs:
+### Docker-Fehlersuche
+
+Containerstatus und letzte Protokollzeilen anzeigen:
 
 ```bash
 docker compose ps -a
 docker compose logs --tail=120 smard-probabilistic
 ```
 
-Wenn Streamlit in einen Python-Fehler läuft, schreibt die App zusätzlich Details nach `smard_daten/output/streamlit_error.log`.
+`0.0.0.0:8501` ist die interne Bind-Adresse der Anwendung im Container. Im Browser wird bei Docker Compose ausschließlich `http://localhost:8503` verwendet.
 
-Alternativ ohne Compose:
+## Lokale Installation
 
-Image bauen:
+Das Docker-Image verwendet Python 3.10. Für eine lokale Installation wird deshalb ebenfalls Python 3.10 empfohlen.
 
-```bash
-docker build -t smard-probabilistic .
-```
-
-Streamlit-App mit lokalen Input-/Output-Ordnern starten:
+### macOS und Linux
 
 ```bash
-docker run --rm -p 8501:8501 \
-  -v "$PWD/smard_daten/input:/app/data/input" \
-  -v "$PWD/smard_daten/output:/app/data/output" \
-  smard-probabilistic
+python3.10 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
 
-Danach ist die App unter `http://localhost:8501` erreichbar.
+Falls Python 3.10 auf dem System als `python3` verfügbar ist, kann der erste Befehl entsprechend mit `python3` ausgeführt werden.
 
-## Datenformat
+Anwendung starten:
 
-Die SMARD-Datei wird als Semikolon-CSV erwartet und sollte mindestens diese Spalten enthalten:
+```bash
+PYTHONPATH=src python -m streamlit run src/energy_forecasting/app.py
+```
+
+Danach ist die Anwendung normalerweise unter [http://localhost:8501](http://localhost:8501) erreichbar.
+
+### Windows PowerShell
+
+```powershell
+py -3.10 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+$env:PYTHONPATH = "src"
+python -m streamlit run src/energy_forecasting/app.py
+```
+
+Die gesetzte `PYTHONPATH`-Variable gilt nur für das aktuelle Terminalfenster.
+
+## Ausführung über die Kommandozeile
+
+Die drei Schritte müssen in dieser Reihenfolge ausgeführt werden:
+
+1. Daten aufbereiten und EDA-Artefakte erzeugen
+2. LSTM trainieren und auswerten
+3. RNN trainieren und auswerten
+
+Lege die Eingabedatei beispielsweise als `data/input/smard.csv` ab. Die folgenden Befehle werden aus der Projektwurzel gestartet und schreiben die Ergebnisse geordnet nach `data/output`:
+
+```bash
+mkdir -p data/output
+cd data/output
+PYTHONPATH=../../src python -m energy_forecasting.data_preparation ../input/smard.csv
+PYTHONPATH=../../src python -m energy_forecasting.models.lstm
+PYTHONPATH=../../src python -m energy_forecasting.models.rnn
+```
+
+Mit einer zusätzlichen Wetterdatei, ebenfalls von der Projektwurzel aus:
+
+```bash
+cd data/output
+PYTHONPATH=../../src python -m energy_forecasting.data_preparation ../input/smard.csv --weather-csv ../input/weather.csv
+PYTHONPATH=../../src python -m energy_forecasting.models.lstm
+PYTHONPATH=../../src python -m energy_forecasting.models.rnn
+```
+
+Unter Windows PowerShell wird nach dem Wechsel in `data/output` einmalig `$env:PYTHONPATH = "../../src"` gesetzt. Die drei Python-Module können danach ohne vorangestelltes `PYTHONPATH=...` aufgerufen werden.
+
+Ohne den Wechsel nach `data/output` legt die Kommandozeilen-Pipeline ihre Artefakte im aktuellen Arbeitsverzeichnis ab. Die Streamlit-Anwendung verschiebt ihre Ergebnisse dagegen automatisch nach `data/output`.
+
+## Eingabedaten
+
+### SMARD-Datei
+
+Erwartet wird eine Semikolon-getrennte CSV mit stündlichen oder viertelstündlichen Werten. Die Datei muss mindestens folgende Spalten enthalten:
 
 - `Datum von`
 - `Datum bis`
-- eine Spalte mit `Photovoltaik`
-- eine Spalte mit `Wind Onshore`
-- eine Spalte mit `Erdgas`
+- eine Spalte, deren Name `Photovoltaik` enthält
+- eine Spalte, deren Name `Wind Onshore` enthält
+- eine Spalte, deren Name `Erdgas` enthält
 
-Deutsche Zahlenformate wie `4.167,28` werden automatisch konvertiert.
+Zeitstempel müssen dem Format `TT.MM.JJJJ HH:MM` entsprechen, beispielsweise `09.04.2026 00:00`. Deutsche Zahlenformate wie `4.167,28` werden automatisch in numerische Werte umgewandelt. Nicht numerische Einträge wie `-` werden in den Erzeugungsspalten als fehlende Werte behandelt und zu `0` konvertiert.
 
-## Optionale Wetterdaten
+Ein kleiner SMARD-Beispieldatensatz für einen technischen Testlauf befindet sich unter `data/examples/`. Er dient ausschließlich zur Prüfung des Ablaufs; Ergebnisse aus diesem kurzen Zeitraum sind nicht belastbar.
 
-Eine Wetter-CSV kann über die Streamlit-Oberfläche oder per `eda.py --weather-csv` eingebunden werden. Sie benötigt eine Zeitstempelspalte wie `Timestamp` oder `Datum von` sowie numerische Wetterspalten, zum Beispiel:
+### Optionale Wetterdatei
+
+Die Wetterdatei kann über die Streamlit-Oberfläche oder mit `--weather-csv` eingebunden werden. Sie benötigt eine Zeitspalte mit einem der unterstützten Namen, zum Beispiel `Timestamp`, `Datum von`, `datetime`, `date` oder `time`, sowie mindestens eine numerische Wetterspalte.
+
+Empfohlenes Format:
 
 ```csv
 Timestamp;Globalstrahlung;Bewoelkung;Temperatur
-2026-04-09 00:00;0,0;85;8,4
-2026-04-09 01:00;0,0;82;8,1
+09.04.2026 00:00;0,0;85;8,4
+09.04.2026 01:00;0,0;82;8,1
 ```
 
-Alle numerischen Wetterspalten werden mit dem Präfix `weather_` gespeichert, zeitlich auf die SMARD-Reihe gemergt und bei Bedarf interpoliert.
+Semikolon und Komma werden als Trennzeichen erkannt. Die numerischen Wetterspalten erhalten intern das Präfix `weather_`, werden über den Zeitstempel mit den SMARD-Daten verbunden und bei Lücken zeitlich interpoliert. Da die aktuelle Einleselogik Tag vor Monat interpretiert, sollten Wetterzeitstempel ebenfalls als `TT.MM.JJJJ HH:MM` angegeben werden. ISO-Datumsangaben mit Jahr an erster Stelle werden derzeit nicht zuverlässig interpretiert.
 
-## Outputs
+## Ablauf und Methodik
 
-Nach einem erfolgreichen Lauf entstehen unter anderem:
+```text
+SMARD-CSV (+ optionale Wetter-CSV)
+        │
+        ▼
+Datenbereinigung und Zeitmerkmale
+        │
+        ▼
+chronologische Sequenzen und Datensplits
+        │
+        ├──► LSTM ──► Quantile, Metriken und Grafiken
+        │
+        └──► RNN  ──► Quantile, Metriken und Grafiken
+                         │
+                         ▼
+                 Streamlit-Dashboard
+```
 
-- `final_probabilistic_lstm.pth`, `final_probabilistic_rnn.pth`
-- `scaler_features*.pkl`, `scaler_target*.pkl`
-- `lstm_vorhersage_daten_*.csv`, `rnn_vorhersage_daten_*.csv`
-- `*_metriken_*.csv`
-- `*_kalibrierung_*.png`
-- `*_feature_importance_*.csv`
-- `*_modell_metadaten_*.json`
-- `dashboard_summary.json`
-- `dashboard_assets/*_thumb.png`
+Die Modelle verwenden ein 24-Stunden-Fenster, dessen Anzahl an Zeitschritten aus der Auflösung der Eingabedaten abgeleitet wird. Die `MinMaxScaler` werden ausschließlich auf dem chronologischen Trainingssplit angepasst. Validierungs- und Testwerte fließen nicht in die Skalierungsparameter ein.
+
+Die Trainingsfunktion verwendet standardmäßig:
+
+- Seed `42`
+- `150` Epochen mit Early Stopping nach `25` Epochen ohne Verbesserung
+- Quantile `0.1`, `0.5` und `0.9`
+- Crossing-Penalty mit Gewicht `0.2`
+- Batch-Größe `32`
+- Lernrate `0.0005`
+
+LSTM und RNN teilen dieselbe Datenaufbereitung, Verlustfunktion und Evaluation. Damit lässt sich der Einfluss der Modellarchitektur direkt vergleichen. Eine Crossing-Penalty reduziert Quantilkreuzungen während des Trainings. Vor Evaluation und Export werden die drei Vorhersagen zusätzlich je Zeitpunkt sortiert; die ursprüngliche Kreuzungsrate wird separat protokolliert.
+
+### Evaluationskennzahlen
+
+| Kennzahl | Bedeutung |
+| --- | --- |
+| Median-RMSE | Fehler der mittleren Quantilprognose `q0.5` |
+| Pinball Loss | quantilspezifischer Prognosefehler |
+| PICP | beobachtete Abdeckung des 80-%-Intervalls |
+| mittlere Intervallbreite | durchschnittliche Breite zwischen `q0.1` und `q0.9` |
+| Winkler Score | gemeinsame Bewertung von Breite und Fehlabdeckung |
+| Kalibrierung | Vergleich von Zielquantil und empirischer Abdeckung |
+| Quantilkreuzungsrate | Anteil ungeordneter Rohprognosen vor der Sortierung |
+
+Für ein gut kalibriertes 80-%-Intervall sollte die PICP in der Nähe von 80 % liegen. Eine hohe Abdeckung allein genügt nicht: Ein unnötig breites Intervall ist weniger informativ und wird unter anderem durch Intervallbreite und Winkler Score sichtbar.
+
+## Ergebnisdateien
+
+Ein vollständiger Lauf erzeugt – abhängig von Modell und Datumsbereich – unter anderem:
+
+- `Realisierte_Erzeugung_Cleaned.csv` und `cleaned_data.pkl`
+- EDA-Grafiken und die zugehörigen CSV-Dateien
+- `final_probabilistic_lstm.pth` und `final_probabilistic_rnn.pth`
+- datierte Modellstände und `best_prob_model*.pth`
+- Feature- und Ziel-Scaler als `.pkl`
+- Prognosedaten und Prognosegrafiken je Modell
+- Lernkurven, Kalibrierungsdaten und Kalibrierungsgrafiken
+- Feature-Importance-Daten und -Grafiken
+- Metrik-CSV und Modellmetadaten als JSON
+- `dashboard_summary.json` und Vorschaubilder unter `dashboard_assets/`
 - `pipeline_protokoll.txt`
-- `streamlit_error.log` nur falls die Streamlit-Ansicht einen Python-Fehler protokolliert
+- `streamlit_error.log`, falls die Oberfläche einen Python-Fehler protokolliert
 
-Die Modellmetadaten dokumentieren zusätzlich, ob die Quantil-Sortierung für Outputs aktiv war und mit welchem Gewicht Quantilkreuzungen im Training bestraft wurden.
+Generierte Laufzeitdaten unter `data/input` und `data/output` werden mit Ausnahme der `.gitkeep`-Dateien nicht versioniert.
 
-## Dashboard und Ergebnisinterpretation
+## Projektstruktur
 
-Die Streamlit-App hat drei Ansichten: `Pipeline`, `Ergebnisse` und `Impressum`. Nach erfolgreichem Pipeline-Lauf wird ein Dashboard-Bundle vorbereitet. Dieses Bundle enthält die wichtigsten Metriken, Metadaten, kleine Tabellenauszüge, einen Logauszug und verkleinerte Vorschaubilder. Die Ergebnisansicht nutzt primär dieses Bundle, statt bei jedem Klick alle Originaldateien neu einzulesen. Beim Öffnen der Ergebnisansicht wird das Bundle nur gelesen und nicht automatisch neu geschrieben.
+```text
+Probabilistische-Energiedatenvorhersage/
+├── src/
+│   └── energy_forecasting/
+│       ├── __init__.py
+│       ├── app.py                 # Streamlit-Oberfläche und Pipeline-Steuerung
+│       ├── dashboard.py           # kompaktes Ergebnis-Bundle für die Oberfläche
+│       ├── data_preparation.py    # CSV-Aufbereitung, EDA und Feature-Erzeugung
+│       ├── training.py            # gemeinsame Trainings- und Evaluationslogik
+│       └── models/
+│           ├── __init__.py
+│           ├── lstm.py            # LSTM-Architektur und Trainingsaufruf
+│           └── rnn.py             # RNN-Architektur und Trainingsaufruf
+├── tests/
+│   └── test_training.py
+├── data/
+│   ├── input/                     # lokale Uploads und Eingabedaten
+│   ├── output/                    # generierte Modelle, Metriken und Grafiken
+│   └── examples/                  # kleiner Beispieldatensatz
+├── docs/
+│   └── praesentationen/           # vorhandene Projektdokumentation
+├── .streamlit/
+│   └── config.toml
+├── .dockerignore
+├── .gitignore
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+└── README.md
+```
 
-Das Dashboard enthält Reiter für `Überblick`, `Prognosen und EDA`, `Diagnose` sowie `Dateien und Protokoll`. Die kurzen interpretierenden Sätze im Überblick werden regelbasiert aus den berechneten Metriken erzeugt. Dadurch bleiben die Ergebnisse reproduzierbar, transparent und methodisch klar nachvollziehbar.
+Der ausführbare Python-Code liegt vollständig im Paket `energy_forecasting`. Daten, Tests und Projektdokumentation sind davon getrennt. Es gibt keine Skripte zur automatischen Erstellung von Präsentationen.
 
-## Hinweise zur Interpretation
+## Tests
 
-Ein gutes probabilistisches Modell sollte nicht nur einen niedrigen RMSE haben. Für das 80%-Intervall sollte die PICP nahe bei 80% liegen, die mittlere Intervallbreite nicht unnötig groß sein und die Quantile sollten nicht kreuzen. Die Pipeline stabilisiert die Quantilordnung durch eine Crossing-Penalty im Training und durch Sortierung vor Evaluation und Plot-Ausgabe. Eine sehr hohe PICP, zum Beispiel deutlich über 90%, kann bedeuten, dass das Unsicherheitsband zu breit und damit wenig informativ ist.
+Nach der lokalen Installation werden die Regressionstests aus der Projektwurzel ausgeführt:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Die Tests prüfen insbesondere, dass die Scaler nur auf Trainingsdaten angepasst werden, probabilistische Kennzahlen vorhanden sind, Quantilkreuzungen erkannt werden und Wettermerkmale korrekt verbunden werden.
+
+> **Aktueller Teststatus:** Drei der vier Tests sind erfolgreich. Der Wettertest verwendet momentan ISO-Zeitstempel und schlägt deshalb an der unten dokumentierten `dayfirst`-Einschränkung fehl. Vor einer Veröffentlichung sollten Test und unterstütztes Eingabeformat wieder in Einklang gebracht werden.
+
+## Bekannte Einschränkungen
+
+- Die Pipeline interpoliert fehlende Werte derzeit vor dem chronologischen Split über die vollständige Zeitachse. Bei Lücken kann dadurch Information aus späteren Zeitpunkten in frühere interpolierte Werte einfließen. Eine ausschließlich vorwärtsgerichtete oder splitweise Imputation würde frühere Ergebnisse verändern und sollte als methodische Weiterentwicklung separat geprüft werden.
+- Ohne eine externe Wetterdatei basieren die Modelle nur auf historischen Erzeugungs- und Zeitmerkmalen. Für eine reale Zukunftsprognose müssten auch zum Prognosezeitpunkt verfügbare Einflussgrößen konsistent bereitgestellt werden.
+- Sehr kurze Eingabezeiträume eignen sich zum Funktionstest, nicht für eine belastbare Modellbewertung.
+- Training und Permutations-Feature-Importance können auf reinen CPU-Systemen längere Zeit beanspruchen.
+- Wetterzeitstempel im ISO-Format `JJJJ-MM-TT` werden von der aktuellen `dayfirst`-Verarbeitung nicht zuverlässig erkannt.
+
+## Technischer Hinweis zur Reproduzierbarkeit
+
+Die Abhängigkeiten sind in `requirements.txt` auf feste Versionen gesetzt. Modellmetadaten dokumentieren zusätzlich Trainingsparameter, Datensplits, Quantile, Crossing-Penalty und die Sortierung der exportierten Quantile. Reproduzierbarkeit kann dennoch durch Hardware, Betriebssystem und numerische Unterschiede einzelner PyTorch-Operationen beeinflusst werden.

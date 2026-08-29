@@ -1,0 +1,2 @@
+"""Modellarchitekturen der Prognosepipeline."""
+
