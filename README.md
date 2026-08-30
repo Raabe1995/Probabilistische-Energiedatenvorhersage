@@ -291,3 +291,11 @@ Die Tests prüfen insbesondere, dass die Scaler nur auf Trainingsdaten angepasst
 ## Technischer Hinweis zur Reproduzierbarkeit
 
 Die Abhängigkeiten sind in `requirements.txt` auf feste Versionen gesetzt. Modellmetadaten dokumentieren zusätzlich Trainingsparameter, Datensplits, Quantile, Crossing-Penalty und die Sortierung der exportierten Quantile. Reproduzierbarkeit kann dennoch durch Hardware, Betriebssystem und numerische Unterschiede einzelner PyTorch-Operationen beeinflusst werden.
+
+## Datenquelle und Lizenz
+
+Die im Ordner `\data\examples` hinterlegten Strommarktdaten stammen von der Plattform [SMARD.de](https://www.smard.de/) der Bundesnetzagentur.
+Sie stehen unter der Lizenz [Creative Commons Namensnennung 4.0 International (CC BY 4.0)](https://creativecommons.org).
+
+**Quellenangabe:**
+© Bundesnetzagentur 2026, smard.de, abgerufen am [04.2026].
