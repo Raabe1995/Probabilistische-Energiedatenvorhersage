@@ -9,14 +9,17 @@ Eine Streamlit-Anwendung führt durch den vollständigen Ablauf: Datenupload, ex
 ## Funktionen
 
 - Verarbeitung von SMARD-CSV-Exporten mit deutschem Zahlen- und Datumsformat
-- optionale Einbindung numerischer Wettermerkmale
+- optionale Einbindung numerischer Wettermerkmale über zeitbasierten Join
 - gemeinsame Trainings- und Evaluationslogik für LSTM und RNN
-- chronologische Aufteilung in Trainings-, Validierungs- und Testdaten
-- Quantilregression für `q0.1`, `q0.5` und `q0.9`
-- Kennzahlen für Punktprognose, Intervallqualität und Kalibrierung
-- reproduzierbare Läufe durch feste Seeds und gepinnte Abhängigkeiten
+- chronologische Aufteilung in Trainings-, Validierungs- und Testdaten (MinMaxScaler fit nur auf Train)
+- Quantilregression für $q_{0.1}$, $q_{0.5}$ und $q_{0.9}$ mittels Pinball Loss
+- Quantile-Crossing-Penalty zur Reduktion ungeordneter Quantile
+- Kennzahlen für Punktprognose (RMSE), Intervallqualität (PICP, Winkler-Score) und Kalibrierung
+- Permutation Feature Importance zur modellagnostischen Interpretation
+- Reproduzierbare Läufe durch feste Seeds und deterministische PyTorch-Einstellungen
 - browserbasiertes Dashboard mit Grafiken, Tabellen und Pipeline-Protokoll
 - Ausführung lokal oder mit Docker Compose
+- Containerisierte Ausführung via Docker Compose oder native lokale Installation
 
 ## Schnellstart mit Docker
 
@@ -253,7 +256,8 @@ Probabilistische-Energiedatenvorhersage/
 │   ├── output/                    # generierte Modelle, Metriken und Grafiken
 │   └── examples/                  # kleiner Beispieldatensatz
 ├── docs/
-│   └── praesentationen/           # vorhandene Projektdokumentation
+│   ├── praesentationen/           # vorhandene Projektdokumentation: Projektpräsentation
+│ 	├── bericht/				   # vorhandene Projektdokumentation: Projektbericht
 ├── .streamlit/
 │   └── config.toml
 ├── .dockerignore
@@ -275,8 +279,6 @@ python -m unittest discover -s tests -v
 ```
 
 Die Tests prüfen insbesondere, dass die Scaler nur auf Trainingsdaten angepasst werden, probabilistische Kennzahlen vorhanden sind, Quantilkreuzungen erkannt werden und Wettermerkmale korrekt verbunden werden.
-
-> **Aktueller Teststatus:** Drei der vier Tests sind erfolgreich. Der Wettertest verwendet momentan ISO-Zeitstempel und schlägt deshalb an der unten dokumentierten `dayfirst`-Einschränkung fehl. Vor einer Veröffentlichung sollten Test und unterstütztes Eingabeformat wieder in Einklang gebracht werden.
 
 ## Bekannte Einschränkungen
 
