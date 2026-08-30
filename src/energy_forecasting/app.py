@@ -815,73 +815,58 @@ def render_project_information_page():
         """
 ## Worum geht es?
 
-Ziel des Projekts ist eine probabilistische Vorhersage der Photovoltaik-Einspeisung. LSTM und RNN liefern dafür
-nicht nur einen einzelnen Schätzwert, sondern drei Quantile: `q0.1`, `q0.5` und `q0.9`. Der Median `q0.5` dient
-als zentrale Prognose. Der Bereich zwischen `q0.1` und `q0.9` beschreibt ein nominelles 80-%-Prognoseintervall.
+Diese Anwendung erstellt eine probabilistische Vorhersage für die Photovoltaik-Einspeisung. Statt einer reinen 
+Punktprognose berechnet das System zusätzlich einen Unsicherheitsbereich um die Schätzung herum, um transparent 
+darzustellen, wie verlässlich eine Prognose in der jeweiligen Situation ist.
 
-Dieser Ansatz macht sichtbar, wie unsicher eine Vorhersage ist. Das ist bei Photovoltaik besonders relevant,
-weil die Erzeugung unter anderem von Tageszeit, Jahreszeit und Wetter abhängt.
+**Beispiel:** Eine klassische Punktprognose liefert einen fixen Wert (z. B. 20.000 MWh zu einem bestimmten Zeitpunkt). 
+Eine probabilistische Vorhersage ergänzt diesen Median um ein Intervall (z. B. 17.000 bis 23.000 MWh). Dieser 
+Korridor ist für Netzbetreiber, Risikomanagement und Ausgleichsenergieplanung deutlich informativer.
 
-## Datenbasis
+## Warum das Projekt sinnvoll ist
 
-Die Pipeline verarbeitet CSV-Exporte mit Energiedaten aus dem SMARD-Portal. Verwendet werden die historische
-Photovoltaik-Einspeisung sowie Wind-Onshore- und Erdgaswerte. Hinzu kommen Merkmale für Uhrzeit, Wochentag und
-Wochenende. Eine zweite CSV kann optional Wetterdaten wie Globalstrahlung, Bewölkung oder Temperatur ergänzen.
+Die Photovoltaik-Einspeisung unterliegt starken witterungs- und tageszeitbedingten Fluktuationen. Nachts wird kein 
+Strom erzeugt, während tagsüber Sonnenstand, Bewölkung, Temperatur und Aerosole die Einspeisung bestimmen. Um den 
+Bedarf an kurzfristiger, kostenintensiver Ausgleichsenergie zu minimieren, quantifiziert diese Pipeline die 
+verbleibende Unsicherheit mathematisch über eine Quantilregression mit Pinball Loss.
 
-Die mitgelieferte Beispieldatei deckt nur einen kurzen Zeitraum ab. Sie eignet sich, um den technischen Ablauf
-zu testen, aber nicht für belastbare Aussagen über die Modellgüte.
+## Verwendete Datenbasis
 
-## Ablauf der Pipeline
+- **SMARD-Marktdaten:** Die Pipeline verarbeitet CSV-Exporte der Bundesnetzagentur (SMARD). Genutzt werden primär die Zeitreihen der Photovoltaik-Einspeisung sowie Wind-Onshore- und Erdgaserzeugung.
+- **Zyklische Merkmale:** Uhrzeit und Wochentag werden trigonometrisch (`hour_sin`, `hour_cos`, `weekday_sin`, `weekday_cos`, `is_weekend`) kodiert, um stetige Übergänge (z. B. von 23:00 Uhr auf 00:00 Uhr) abzubilden.
+- **Optionale Wetterdaten:** Über eine separate CSV-Datei können meteorologische Parameter (z. B. Globalstrahlung, Bewölkung, Temperatur) integriert werden, die über einen zeitbasierten Join mit den Marktdaten zusammengeführt werden.
 
-1. Die Anwendung liest die SMARD-Datei ein und vereinheitlicht Zeitstempel sowie deutsche Zahlenformate.
-2. Eine explorative Analyse erzeugt Zeitreihen-, Tagesprofil- und Korrelationsgrafiken.
-3. Aus den Daten entstehen chronologische Sequenzen mit einem zurückliegenden 24-Stunden-Fenster.
-4. Die Sequenzen werden der Zeit nach in Training, Validierung und Test aufgeteilt. Die Skalierung wird nur aus
-   dem Trainingsabschnitt bestimmt.
-5. LSTM und RNN werden mit derselben Trainings- und Evaluationslogik trainiert.
-6. Metriken, Prognosedaten, Modellstände und Grafiken werden für das Dashboard aufbereitet.
+## Pipeline-Ablauf
 
-## Bewertung der Prognosen
+1. **Bereinigung:** Konvertierung deutscher Zahlenformate (Komma/Punkt), Validierung des Zeitstempel-Indexes und automatisches Erkennen der zeitlichen Granularität.
+2. **Explorative Datenanalyse (EDA):** Erstellung von Summenverläufen, mittleren Tagesprofilen und Korrelationsmatrizen.
+3. **Chronologischer Split & Skalierung:** Strikt sequentieller Split in Training, Validierung und Test. Der `MinMaxScaler` wird zur Vermeidung von Data Leakage ausschließlich auf dem Trainingssplit angepasst.
+4. **Sequenzerstellung:** Umwandlung in dreidimensionale PyTorch-Tensoren mit einem 24-Stunden-Lookback-Fenster.
+5. **Modelltraining (LSTM vs. RNN):** Vergleich eines Long Short-Term Memory Netzwerks mit einem klassischen Recurrent Neural Network unter identischen Hyperparametern und Optimierungsbedingungen.
+6. **Probabilistische Ausgabe:** Schätzung dreier Quantile (`q0.1`, `q0.5`, `q0.9`) über den Pinball Loss mit integrierter Quantile Crossing Penalty zur Absicherung der monotonen Ordnung.
 
-Eine einzelne Kennzahl reicht für probabilistische Prognosen nicht aus. Das Dashboard betrachtet deshalb mehrere
-Aspekte:
+## Evaluationsmetriken
 
-- **Median-RMSE:** Fehler der zentralen Vorhersage `q0.5`
-- **Pinball Loss:** Fehler der einzelnen Quantilprognosen
-- **PICP:** Anteil der Messwerte innerhalb des 80-%-Intervalls
-- **Intervallbreite:** durchschnittlicher Abstand zwischen `q0.1` und `q0.9`
-- **Winkler Score:** gemeinsame Bewertung von Intervallbreite und Fehlabdeckung
-- **Quantilkreuzungsrate:** Anteil ungeordneter Rohprognosen vor der Ausgabeabsicherung
+- **PICP (Prediction Interval Coverage Probability):** Misst den Anteil der Testdaten, der real innerhalb des 80-%-Intervalls liegt (Sollwert: ca. 80 %).
+- **Mittlere Intervallbreite:** Gibt die durchschnittliche Breite des Unsicherheitsbandes in MWh an (je schmaler bei korrekter Abdeckung, desto präziser).
+- **Median-RMSE:** Wurzel der mittleren Fehlerquadratsumme der zentralen Punktprognose (`q0.5`).
+- **Pinball Loss:** Spezifische Quantilsverlustfunktion zur individuellen Gütebewertung aller drei Quantilsgrenzen.
+- **Winkler Score:** Kombinierte Metrik, die schmale Intervalle honoriert und Werte außerhalb der Grenzen mathematisch sanktioniert.
+- **Quantile Crossing Rate:** Überprüft, ob die physikalisch monotone Ordnung (`q0.1 <= q0.5 <= q0.9`) eingehalten wurde.
 
-Für die PICP ist ein Wert in der Nähe von 80 % wünschenswert. Eine größere Abdeckung ist nicht automatisch
-besser, da sie durch ein sehr breites und damit wenig aussagekräftiges Intervall entstehen kann. Deshalb werden
-Abdeckung und Intervallbreite immer gemeinsam betrachtet.
+## Erklärbarkeit & Dashboard
 
-## Ergebnisansicht
+Das Dashboard fasst Metriken, Visualisierungen und Protokolle zusammen. Über eine **Permutation Feature Importance** wird ermittelt, welche Eingangsmerkmale den größten Einfluss auf die Reduktion des Pinball Loss haben. Die textlichen Bewertungen basieren auf festen, nachvollziehbaren Schwellenwerten (z. B. bis zu drei Prozentpunkte Abweichung vom 80-%-PICP-Ziel gelten als gut kalibriert).
 
-Nach einem erfolgreichen Lauf stellt das Dashboard die Kennzahlen beider Modelle gegenüber. Zusätzlich zeigt es
-Prognoseintervalle, Lernkurven, Kalibrierung, explorative Grafiken und eine Permutations-Feature-Importance. Die
-Feature Importance beschreibt, welche Eingangsgrößen das Modell für seine Vorhersage nutzt; ein kausaler
-Zusammenhang lässt sich daraus nicht ableiten.
+## Grenzen des Systems
 
-Kurze Einordnungen im Dashboard werden anhand fester Schwellenwerte erzeugt. Bei identischen Kennzahlen fällt
-die Bewertung daher immer gleich aus.
+- Es handelt sich um ein akademisches Demonstrations- und Forschungsprojekt, nicht um ein operatives Handelssystem.
+- Ohne hochaufgelöste numerische Wettervorhersagen basieren die Prognosen primär auf der historischen Persistenz und zeitlichen Periodizitäten.
+- Eventuelle Datenlücken werden vor dem chronologischen Split zeitlich interpoliert; dieser Aspekt ist bei der Interpretation der Metriken zu berücksichtigen.
 
-## Grenzen des Projekts
+## Datenschutz und lokaler Betrieb
 
-Das Projekt demonstriert eine vollständige ML-Pipeline, ist aber kein operatives Prognosesystem. Ohne passende
-Wettervorhersagen fehlen wichtige Informationen für eine reale Zukunftsprognose. Ungewöhnliche Wetterlagen,
-Datenfehler und strukturelle Veränderungen im Stromsystem können die Ergebnisse zusätzlich verschlechtern.
-
-Fehlende Werte werden in der aktuellen Fassung vor dem chronologischen Datensplit über die gesamte Zeitachse
-interpoliert. Dadurch kann bei Datenlücken Information aus späteren Zeitpunkten in frühere Werte einfließen.
-Dieser Punkt muss bei der Interpretation der Ergebnisse berücksichtigt werden.
-
-## Projektkontext und Datenverarbeitung
-
-Die Anwendung entstand als nicht kommerzielles Hochschulprojekt. Sie ist für die lokale Ausführung vorgesehen
-und verarbeitet hochgeladene Dateien in den Projektverzeichnissen `data/input` und `data/output`. Die Pipeline
-überträgt keine Daten an externe Cloud-Dienste.
+Die Bereitstellung erfolgt containerisiert via Docker. Die gesamte Datenverarbeitung erfolgt lokal in den Verzeichnissen `data/input` und `data/output`. Es werden keine Daten an externe Schnittstellen oder Cloud-Dienste übermittelt.
         """
     )
 
